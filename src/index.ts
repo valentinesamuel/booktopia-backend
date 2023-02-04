@@ -8,5 +8,5 @@ app.use('/', (_req, res: Response, _next) => {
 });
 
 app.listen(PORT, () => {
-	console.log(`Server is Listening on port ${PORT}...feature_branch`);
+	console.log(`Server is Listening on port ${PORT}...`);
 });
