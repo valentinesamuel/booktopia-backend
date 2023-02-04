@@ -16,7 +16,7 @@
     "fix-lint": "npm run check-lint --fix"
   },
   "keywords": [],
-  "author": "",
+  "author": "Valentine Samuel",
   "license": "ISC",
   "husky": {
     "hooks": {

@@ -1,4 +1,10 @@
 import {Response} from 'express';
+import {Error} from 'mongoose';
+
+const getErrorMessage = (error: unknown) => {
+	if (error instanceof Error) return error.message;
+	return String(error);
+};
 
 /**
  * @description A function that facilitates the response of a successful request
@@ -29,28 +35,32 @@ const successResponse = (
  * @param {Response} res http response object
  * @param {String} message custom error message
  * @param {Number} [status=500] http error status
- * @returns {Response} http response with error status and message
+ * @param {Error} error error type
+ * @returns {Response} http response with error message, status, and custom error message
  */
 const errorResponse = (
-	errors: unknown,
 	res: Response,
-	message: unknown,
+	message: string,
+	error: Error,
 	status = 500
 ) => {
-	let errMessage: any;
+	let errMessage: string;
 	if (message == null) {
 		switch (status) {
 			case 400:
 				errMessage = 'Bad Request';
 				break;
+			case 401:
+				errMessage = 'Unauthorised';
+				break;
 			case 403:
 				errMessage = 'Forbidden';
 				break;
 			case 404:
-				errMessage = 'Resource not found';
+				errMessage = 'Not Found';
 				break;
-			case 503:
-				errMessage = 'Service Unavailable';
+			case 409:
+				errMessage = 'Conflict';
 				break;
 			default:
 				errMessage = 'Internal server error';
@@ -59,18 +69,14 @@ const errorResponse = (
 	} else {
 		errMessage = message;
 	}
-
+	const stringifiedError = getErrorMessage(error);
 	return res.status(status).send({
 		error: {
-			errors,
+			stringifiedError,
 			code: status,
 			message: errMessage.replace(/["]/gi, '')
 		}
 	});
 };
 
-const getErrorMessage = (error: unknown) => {
-	if (error instanceof Error) return error.message;
-	return String(error);
-};
-export {successResponse, errorResponse, getErrorMessage};
+export {successResponse, errorResponse};
