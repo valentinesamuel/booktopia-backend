@@ -12,3 +12,4 @@ build
 public
 node_modules
 vercel.json
+src/utils/types.ts

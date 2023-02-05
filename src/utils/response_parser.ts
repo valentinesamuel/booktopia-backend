@@ -16,14 +16,30 @@ const getErrorMessage = (error: unknown) => {
  */
 const successResponse = (
 	res: Response,
-	message: unknown,
+	message: string,
 	data: unknown,
 	status = 200
 ) => {
+	let successMessage: string;
+	if (message == null) {
+		switch (status) {
+			case 201:
+				successMessage = 'Resource Created';
+				break;
+			case 204:
+				successMessage = 'No Content to Return';
+				break;
+			default:
+				successMessage = 'The request was successful';
+				break;
+		}
+	} else {
+		successMessage = message;
+	}
+
 	const resBody = {
-		state: 'success',
 		code: status,
-		message,
+		successMessage,
 		data
 	};
 
