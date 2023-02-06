@@ -23,6 +23,10 @@ const GiftCardSchema = new Schema({
 		type: Number,
 		required: true
 	},
+	price: {
+		type: Number,
+		required: true
+	},
 	sender: {
 		type: String,
 		required: true

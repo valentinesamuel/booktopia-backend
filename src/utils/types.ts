@@ -161,6 +161,7 @@ export interface IGiftCard {
 	updated_at: Date
 	gift_card_id: string
 	amount: number
+	price: number
 	sender: string
 	recipient: string
 	phone_number: number
