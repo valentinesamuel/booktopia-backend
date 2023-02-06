@@ -69,32 +69,6 @@ const OrderSchema = new Schema({
 	}
 });
 
-const OrderHistorySchema = new Schema({
-	created_at: {
-		type: Date,
-		default: Date.now
-	},
-	updated_at: {
-		type: Date,
-		default: Date.now
-	},
-	user_id: {
-		type: String,
-		required: true
-	},
-	order_history_id: {
-		type: String,
-		required: true
-	},
-	orders: [
-		{
-			type: OrderSchema,
-			required: false
-		}
-	]
-});
-
 const Order = mongoose.model('Order', OrderSchema);
-const OrderHistory = mongoose.model('OrderHistory', OrderHistorySchema);
 
-export {Order, OrderHistory};
+export {Order};

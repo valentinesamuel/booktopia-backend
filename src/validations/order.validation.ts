@@ -11,7 +11,7 @@ export const validateOrderData = (order: IOrder) => {
 		order_items: Joi.array().items(Joi.alternatives()),
 		order_status: Joi.string().required(),
 		shipping_information: Joi.string().required(),
-		billing_address: Joi.object({
+		delivery_address: Joi.object({
 			user_id: Joi.string().required(),
 			street: Joi.string().required(),
 			state: Joi.string().required(),

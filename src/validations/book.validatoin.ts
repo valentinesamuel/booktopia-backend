@@ -20,7 +20,7 @@ export const validateBookData = (book: IBook) => {
 			publisher: Joi.string().required()
 		}),
 		cover_image: Joi.string().required(),
-		genre_id: Joi.string().required()
+		genre_id: Joi.array().items(Joi.string()).required()
 	});
 	return bookSchema.validate(book);
 };

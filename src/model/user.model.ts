@@ -34,25 +34,18 @@ const UserSchema = new Schema({
 		required: true,
 		unique: true
 	},
-	wishlisted_books: [
-		{
-			type: String,
-			ref: 'Book',
-			required: false,
-			unique: true
-		}
-	],
-	order_history: [
-		{
-			type: String,
-			ref: 'OrderHistory',
-			required: false,
-			unique: true
-		}
-	],
+	wishlisted_books: {
+		type: [String],
+		required: false,
+		unique: true
+	},
+	order_history: {
+		type: [String],
+		required: false,
+		unique: true
+	},
 	cart: {
 		type: String,
-		ref: 'Cart',
 		required: false,
 		unique: true
 	},
