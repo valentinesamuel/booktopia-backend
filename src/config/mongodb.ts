@@ -5,10 +5,10 @@ dotenv.config();
 const MONGO_URL = process.env.DATABASE_URL;
 
 mongoose.connection.once('open', () => {
-	console.log('MongoDB Connection XDDDReady..🚀✅🚀❇️🚀');
+	console.log('\nMongoDB Connection Ready..🚀✅🚀❇️🚀\n');
 });
 mongoose.connection.on('error', (error) => {
-	console.error('MongoDB Connection Failed..🚩🚨🚩🚨⛔⚠️⛔⚠️', error);
+	console.error('\nMongoDB Connection Failed..🚩🚨🚩🚨⛔⚠️⛔⚠️\n', error);
 });
 
 async function mongodbConnect() {
