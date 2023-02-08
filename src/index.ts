@@ -4,6 +4,8 @@ import morgan from 'morgan';
 import * as dotenv from 'dotenv';
 
 import {errorResponse} from './utils/response_parser';
+import {userRouter} from './v1/routes/user/index.router';
+import {adminRouter} from './v1/routes/admin/index.router';
 dotenv.config();
 
 const app: Application = express();
@@ -13,11 +15,8 @@ const PORT = process.env.PORT_NUMBER || 8000;
 app.use(morgan('combined'));
 app.use(express.json());
 
-app.use('/api', (_req: Request, res: Response, _next: NextFunction) => {
-	res.status(200).send({
-		data: 'Hello from server'
-	});
-});
+app.use('/api/v1/user', userRouter);
+app.use('/api/v1/admin', adminRouter);
 
 app.use((_req: Request, res: Response, _next: NextFunction) => {
 	const error = new Error('Route not found');
