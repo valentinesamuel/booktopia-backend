@@ -1,0 +1,3 @@
+const serviceContainer = {};
+
+export {serviceContainer};
