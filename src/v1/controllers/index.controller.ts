@@ -1,7 +1,15 @@
-import {getABook} from './user/books.controller';
+import {
+	getABook,
+	getAllBooks,
+	getAGenreBooks,
+	searchBook
+} from './user.controller';
 
 const controllerContainer = {
-	getABook
+	getABook,
+	getAllBooks,
+	getAGenreBooks,
+	searchBook
 };
 
 export {controllerContainer};

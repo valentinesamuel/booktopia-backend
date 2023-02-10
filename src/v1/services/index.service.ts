@@ -1,5 +1,15 @@
-import {getABookService} from './user/book.service';
+import {
+	getABookService,
+	getAllBooksService,
+	getAGenreBooksService,
+	searchService
+} from './user.service';
 
-const serviceContainer = {getABookService};
+const serviceContainer = {
+	getABookService,
+	getAllBooksService,
+	getAGenreBooksService,
+	searchService
+};
 
 export {serviceContainer};
