@@ -4,8 +4,8 @@ import morgan from 'morgan';
 import * as dotenv from 'dotenv';
 
 import {errorResponse} from './utils/response_parser';
-import {userRouter} from './v1/routes/user/index.router';
-import {adminRouter} from './v1/routes/admin/index.router';
+import {userRouter} from './v1/routes/user.router';
+import {adminRouter} from './v1/routes/admin.router';
 dotenv.config();
 
 const app: Application = express();

@@ -1,5 +1,15 @@
-import {getABookRepo} from './user/book.repository';
+import {
+	getABookRepo,
+	getAllBooksRepo,
+	getAGenreBooksRepo,
+	searchRepo
+} from './user.repository';
 
-const repositoryContainer = {getABookRepo};
+const repositoryContainer = {
+	getABookRepo,
+	getAllBooksRepo,
+	getAGenreBooksRepo,
+	searchRepo
+};
 
 export {repositoryContainer};
