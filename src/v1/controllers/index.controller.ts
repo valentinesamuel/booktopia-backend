@@ -2,14 +2,16 @@ import {
 	getABook,
 	getAllBooks,
 	getAGenreBooks,
-	searchBook
+	searchBook,
+	filterProducts
 } from './user.controller';
 
 const controllerContainer = {
 	getABook,
 	getAllBooks,
 	getAGenreBooks,
-	searchBook
+	searchBook,
+	filterProducts
 };
 
 export {controllerContainer};

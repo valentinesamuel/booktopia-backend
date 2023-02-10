@@ -9,5 +9,6 @@ userRouter.get('/book/:bookId', controllerContainer.getABook);
 userRouter.get('/genre/:genreName', controllerContainer.getAGenreBooks);
 userRouter.get('/search', controllerContainer.searchBook);
 userRouter.get('/shop', controllerContainer.getAllBooks);
+userRouter.get('/shop/filter', controllerContainer.filterProducts);
 
 export {userRouter};

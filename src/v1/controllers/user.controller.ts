@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/no-confusing-void-expression */
 import {Request, Response} from 'express';
+import {dbQueryParser} from '../../utils/db_query_paarser';
+import {convertQueryStringToObject} from '../../utils/query_parser';
 import {errorResponse, successResponse} from '../../utils/response_parser';
 import {serviceContainer} from '../services/index.service';
 
@@ -40,5 +43,14 @@ const searchBook = async (req: Request, res: Response) => {
 		errorResponse(res, 'Failed to fetch books', error as Error);
 	}
 };
+const filterProducts = async (req: Request, res: Response) => {
+	const requestUrl = req.url;
+	const filterUrl = requestUrl.split('?')[1];
+	const query = convertQueryStringToObject(filterUrl);
+	const dbQuery = dbQueryParser(query);
+	console.log(query);
+	console.log(dbQuery);
+	successResponse(res, 'Fetched successfully', {}, 200);
+};
 
-export {getABook, getAllBooks, getAGenreBooks, searchBook};
+export {getABook, getAllBooks, getAGenreBooks, searchBook, filterProducts};
