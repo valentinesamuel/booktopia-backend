@@ -34,7 +34,7 @@ const UserSchema = new Schema({
 		required: true,
 		unique: true
 	},
-	wishlisted_books: {
+	wishlist: {
 		type: [String],
 		required: false,
 		unique: true

@@ -43,6 +43,7 @@ const searchBook = async (req: Request, res: Response) => {
 		errorResponse(res, 'Failed to fetch books', error as Error);
 	}
 };
+
 const filterProducts = async (req: Request, res: Response) => {
 	const requestUrl = req.url;
 	const filterUrl = requestUrl.split('?')[1];
@@ -53,4 +54,86 @@ const filterProducts = async (req: Request, res: Response) => {
 	successResponse(res, 'Fetched successfully', {}, 200);
 };
 
-export {getABook, getAllBooks, getAGenreBooks, searchBook, filterProducts};
+const getOrders = async (req: Request, res: Response) => {
+	try {
+		const userId = req.query.user;
+		const orders = await serviceContainer.getOrdersService(userId as string);
+		successResponse(res, 'Fetched successfully', orders, 200);
+	} catch (error) {
+		errorResponse(res, 'Failed to fetch a book', error as Error);
+	}
+};
+
+const getUserDetail = async (req: Request, res: Response) => {
+	try {
+		const userId = req.params.userId;
+		const userDetail = await serviceContainer.getUserDetailService(userId);
+		successResponse(res, 'Fetched Successfully', userDetail, 200);
+	} catch (error) {
+		errorResponse(res, 'Failed to fetch user details', error as Error);
+	}
+};
+
+const updateUserDetail = async (req: Request, res: Response) => {
+	try {
+		const userId = req.params.userId;
+		const updatedInformation = req.query;
+		const userDetail = await serviceContainer.updateUserDetailService(
+			userId,
+			updatedInformation
+		);
+		successResponse(res, 'Fetched Successfully', userDetail, 200);
+	} catch (error) {
+		errorResponse(res, 'Failed to fetch user details', error as Error);
+	}
+};
+
+const getWishlist = async (req: Request, res: Response) => {
+	try {
+		const userId = req.params.userId;
+		const wishlist = await serviceContainer.getWishlistService(userId);
+		successResponse(res, 'Fetched Successfully', wishlist, 200);
+	} catch (error) {
+		errorResponse(res, 'Failed to fetch user details', error as Error);
+	}
+};
+
+const updateWishlist = async (req: Request, res: Response) => {
+	try {
+		const userId = req.params.userId;
+		const wishlistItems = req.body;
+		const wishlist = await serviceContainer.updateWishlistService(
+			userId,
+			wishlistItems
+		);
+		console.log(wishlistItems);
+
+		successResponse(res, 'Fetched Successfully', wishlist, 200);
+	} catch (error) {
+		errorResponse(res, 'Failed to fetch user details', error as Error);
+	}
+};
+
+const getCartItems = async (req: Request, res: Response) => {
+	try {
+		const userId = req.params.userId;
+		const cartItems = await serviceContainer.getCartItemsService(userId);
+		successResponse(res, 'Fetched Successfully', cartItems, 200);
+	} catch (error) {
+		errorResponse(res, 'Failed to fetch cart items', error as Error);
+	}
+};
+
+export {
+	getABook,
+	getAllBooks,
+	getAGenreBooks,
+	searchBook,
+	filterProducts,
+	getOrders,
+	getUserDetail,
+	updateUserDetail,
+	getWishlist,
+	updateWishlist,
+	getCartItems
+};
