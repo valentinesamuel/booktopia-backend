@@ -1,9 +1,46 @@
-/* eslint-disable @typescript-eslint/no-confusing-void-expression */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+
+import {v4 as uuidv4} from 'uuid';
 import {Request, Response} from 'express';
+import {validateUserData} from '../../validations/user.validation';
 import {dbQueryParser} from '../../utils/db_query_paarser';
 import {convertQueryStringToObject} from '../../utils/query_parser';
 import {errorResponse, successResponse} from '../../utils/response_parser';
 import {serviceContainer} from '../services/index.service';
+import {encrypt} from '../../../encryption';
+
+const signInUser = async (req: Request, res: Response) => {
+	try {
+		const user = req.body;
+		const signedInUser = await serviceContainer.signInUserService(user);
+		successResponse(res, 'Fetched successfully', signedInUser, 200);
+	} catch (error) {
+		errorResponse(res, 'Failed to signin the user', error as Error);
+	}
+};
+
+const signUpUser = async (req: Request, res: Response) => {
+	try {
+		const user = req.body;
+		const {encryptedId} = encrypt(uuidv4());
+		// const deccryptedId = decrypt(encryptedId, iv);
+		user.user_id = encryptedId;
+		const isUserValid = validateUserData(user);
+		console.log(isUserValid);
+
+		if (isUserValid.error) {
+			errorResponse(
+				res,
+				'Failed to signup the user',
+				isUserValid.error as Error
+			);
+		}
+		const signedUpUser = await serviceContainer.signInUserService(user);
+		successResponse(res, 'Fetched successfully', signedUpUser, 200);
+	} catch (error) {
+		errorResponse(res, 'Failed to signup the user', error as Error);
+	}
+};
 
 const getAllBooks = async (_req: Request, res: Response) => {
 	try {
@@ -162,6 +199,8 @@ const getBookSubscription = async (req: Request, res: Response) => {
 };
 
 export {
+	signInUser,
+	signUpUser,
 	getABook,
 	getAllBooks,
 	getAGenreBooks,

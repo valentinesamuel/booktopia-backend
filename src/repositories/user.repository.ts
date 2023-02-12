@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-confusing-void-expression */
 // import { Genre } from '../model/genre.model';
 // import {GiftCard} from '../model/gift_card.model';
 // import {ObjectIndexer} from '../utils/utility-types';
@@ -6,6 +7,19 @@
 // import {Cart} from '../model/cart.model';
 // import {User} from '../model/user.model';
 // import {Subscription} from '../model/subscription.model';
+import {IUser} from '../utils/types';
+
+const signUpUser = async (_user: any) => {
+	// const newUser = await User.create(user);
+	const newUser = 'New user created';
+	return newUser;
+};
+
+const signInUser = async (_user: IUser) => {
+	// const signedInUser = await User.findOne({email: user.email});
+	const signedInUser = 'User has been signed in';
+	return signedInUser;
+};
 
 const getAllBooksRepo = async () => {
 	const book = 'You Got all the books';
@@ -123,6 +137,8 @@ const getBookSubscriptionsRepo = async (_userId: string) => {
 };
 
 export {
+	signUpUser,
+	signInUser,
 	getABookRepo,
 	getAllBooksRepo,
 	getAGenreBooksRepo,

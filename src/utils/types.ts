@@ -4,6 +4,7 @@ export interface IUser {
 	first_name: string
 	last_name: string
 	email: string
+	user_id: string
 	password: string
 	wishlisted_books: IWishlistedBooks
 	order_history: IOrderHistory
