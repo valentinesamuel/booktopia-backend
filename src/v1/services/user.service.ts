@@ -90,6 +90,34 @@ const getCartItemsService = async (userId: string) => {
 	return cartItems;
 };
 
+const updateCartService = async (userId: string, updatedCart: any) => {
+	const cart = await repositoryContainer.updateCartRepo(userId, updatedCart);
+	if (cart == null) {
+		throw new Error('cart could not be updated');
+	}
+	return cart;
+};
+
+const addBookSubscriptionService = async (subscriptionDetails: any) => {
+	const subscription = await repositoryContainer.addBookSubscriptionRepo(
+		subscriptionDetails
+	);
+	if (subscription == null) {
+		throw new Error('Subscription could not be added');
+	}
+	return subscription;
+};
+
+const getBookSubscriptionService = async (userId: string) => {
+	const subscription = await repositoryContainer.getBookSubscriptionsRepo(
+		userId
+	);
+	if (subscription == null) {
+		throw new Error('Subscription(s) could not be found');
+	}
+	return subscription;
+};
+
 export {
 	getABookService,
 	getAllBooksService,
@@ -100,5 +128,8 @@ export {
 	updateUserDetailService,
 	getWishlistService,
 	updateWishlistService,
-	getCartItemsService
+	getCartItemsService,
+	updateCartService,
+	addBookSubscriptionService,
+	getBookSubscriptionService
 };

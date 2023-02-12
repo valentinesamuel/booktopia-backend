@@ -1,10 +1,11 @@
 // import { Genre } from '../model/genre.model';
-import {GiftCard} from '../model/gift_card.model';
-import {ObjectIndexer} from '../utils/utility-types';
-import {Book} from '../model/book.model';
+// import {GiftCard} from '../model/gift_card.model';
+// import {ObjectIndexer} from '../utils/utility-types';
+// import {Book} from '../model/book.model';
 // import { Order } from '../model/order.model';
-import {Cart} from '../model/cart.model';
-import {User} from '../model/user.model';
+// import {Cart} from '../model/cart.model';
+// import {User} from '../model/user.model';
+// import {Subscription} from '../model/subscription.model';
 
 const getAllBooksRepo = async () => {
 	const book = 'You Got all the books';
@@ -82,21 +83,43 @@ const updateWishlistRepo = async (userId: string, _wishlistItems: any) => {
 };
 
 const getCartItemsRepo = async (userId: string) => {
-	// const cartItems = `You Got the ${userId} cart items`;
-	const cartDetails: ObjectIndexer = {};
-	const cartId = await User.findOne({user_id: userId}, {projection: {cart: 1}});
-	const cartObj = await Cart.findOne({
-		cart_id: cartId
-	});
-	const books = await Book.find({
-		book_id: {$in: cartObj?.cart_items}
-	});
-	const giftcards = await GiftCard.find({
-		gift_card_id: {$in: cartObj?.cart_items}
-	});
-	cartDetails.books = books;
-	cartDetails.gift_card = giftcards;
+	const cartDetails = `You Got the ${userId} cart items`;
+	// const cartDetails: ObjectIndexer = {};
+	// const cartId = await User.findOne({user_id: userId}, {projection: {cart: 1}});
+	// const cartObj = await Cart.findOne({
+	// 	cart_id: cartId
+	// });
+	// const books = await Book.find({
+	// 	book_id: {$in: cartObj?.cart_items}
+	// });
+	// const giftcards = await GiftCard.find({
+	// 	gift_card_id: {$in: cartObj?.cart_items}
+	// });
+	// cartDetails.books = books;
+	// cartDetails.gift_card = giftcards;
 	return cartDetails;
+};
+
+const updateCartRepo = async (userId: string, _updatedCartItems: any) => {
+	const updatedCart = `You updated the ${userId} cart items`;
+	// const updatedCart = await Cart.findOne(
+	// 	{user_id: userId},
+	// 	{cart_items: updatedCartItems},
+	// 	{upsert: true}
+	// );
+	return updatedCart;
+};
+
+const addBookSubscriptionRepo = async (_subscriptionDetails: any) => {
+	const subscription = 'You subscribed';
+	// const subscription = await Subscription.create(subscriptionDetails);
+	return subscription;
+};
+
+const getBookSubscriptionsRepo = async (_userId: string) => {
+	const subscription = 'See subscriptions';
+	// const subscription = await Subscription.find({user_id: userId});
+	return subscription;
 };
 
 export {
@@ -109,5 +132,8 @@ export {
 	updateUserDetailsRepo,
 	getWishlistRepo,
 	updateWishlistRepo,
-	getCartItemsRepo
+	getCartItemsRepo,
+	updateCartRepo,
+	addBookSubscriptionRepo,
+	getBookSubscriptionsRepo
 };

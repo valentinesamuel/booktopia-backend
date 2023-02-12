@@ -9,7 +9,10 @@ import {
 	updateUserDetail,
 	getWishlist,
 	updateWishlist,
-	getCartItems
+	getCartItems,
+	updateCart,
+	addBookSubscription,
+	getBookSubscription
 } from './user.controller';
 
 const controllerContainer = {
@@ -23,7 +26,10 @@ const controllerContainer = {
 	updateUserDetail,
 	getWishlist,
 	updateWishlist,
-	getCartItems
+	getCartItems,
+	updateCart,
+	addBookSubscription,
+	getBookSubscription
 };
 
 export {controllerContainer};

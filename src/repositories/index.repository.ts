@@ -8,7 +8,10 @@ import {
 	updateUserDetailsRepo,
 	getWishlistRepo,
 	updateWishlistRepo,
-	getCartItemsRepo
+	getCartItemsRepo,
+	updateCartRepo,
+	addBookSubscriptionRepo,
+	getBookSubscriptionsRepo
 } from './user.repository';
 
 const repositoryContainer = {
@@ -21,7 +24,10 @@ const repositoryContainer = {
 	updateUserDetailsRepo,
 	getWishlistRepo,
 	updateWishlistRepo,
-	getCartItemsRepo
+	getCartItemsRepo,
+	updateCartRepo,
+	addBookSubscriptionRepo,
+	getBookSubscriptionsRepo
 };
 
 export {repositoryContainer};
