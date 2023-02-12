@@ -1,4 +1,6 @@
 import {
+	signInUser,
+	signUpUser,
 	getABook,
 	getAllBooks,
 	getAGenreBooks,
@@ -16,6 +18,8 @@ import {
 } from './user.controller';
 
 const controllerContainer = {
+	signInUser,
+	signUpUser,
 	getABook,
 	getAllBooks,
 	getAGenreBooks,

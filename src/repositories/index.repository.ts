@@ -11,7 +11,9 @@ import {
 	getCartItemsRepo,
 	updateCartRepo,
 	addBookSubscriptionRepo,
-	getBookSubscriptionsRepo
+	getBookSubscriptionsRepo,
+	signInUser,
+	signUpUser
 } from './user.repository';
 
 const repositoryContainer = {
@@ -27,7 +29,9 @@ const repositoryContainer = {
 	getCartItemsRepo,
 	updateCartRepo,
 	addBookSubscriptionRepo,
-	getBookSubscriptionsRepo
+	getBookSubscriptionsRepo,
+	signInUser,
+	signUpUser
 };
 
 export {repositoryContainer};

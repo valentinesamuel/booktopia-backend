@@ -4,6 +4,8 @@ import {controllerContainer} from '../controllers/index.controller';
 
 const userRouter: Router = express.Router();
 
+userRouter.get('/signin', controllerContainer.signInUser);
+userRouter.get('/signup', controllerContainer.signUpUser);
 userRouter.get('/:userId', controllerContainer.getUserDetail);
 userRouter.get('/:userId/wishlist', controllerContainer.getWishlist);
 userRouter.get('/:userId/cart', controllerContainer.getCartItems);
