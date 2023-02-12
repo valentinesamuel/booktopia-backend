@@ -8,7 +8,10 @@ import {
 	updateUserDetailService,
 	getWishlistService,
 	updateWishlistService,
-	getCartItemsService
+	getCartItemsService,
+	updateCartService,
+	addBookSubscriptionService,
+	getBookSubscriptionService
 } from './user.service';
 
 const serviceContainer = {
@@ -21,7 +24,10 @@ const serviceContainer = {
 	updateUserDetailService,
 	getWishlistService,
 	updateWishlistService,
-	getCartItemsService
+	getCartItemsService,
+	updateCartService,
+	addBookSubscriptionService,
+	getBookSubscriptionService
 };
 
 export {serviceContainer};

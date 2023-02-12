@@ -124,6 +124,43 @@ const getCartItems = async (req: Request, res: Response) => {
 	}
 };
 
+const updateCart = async (req: Request, res: Response) => {
+	try {
+		const userId = req.params.userId;
+		const cartItems = req.body;
+		const cart = await serviceContainer.updateCartService(userId, cartItems);
+		console.log(cart);
+		successResponse(res, 'Fetched Successfully', cart, 200);
+	} catch (error) {
+		errorResponse(res, 'Failed to updated cart items', error as Error);
+	}
+};
+
+const addBookSubscription = async (req: Request, res: Response) => {
+	try {
+		// const userId = req.params.userId;
+		const subscriptionDetails = req.body;
+		const subscription = await serviceContainer.addBookSubscriptionService(
+			subscriptionDetails
+		);
+		successResponse(res, 'Fetched Successfully', subscription, 200);
+	} catch (error) {
+		errorResponse(res, 'Failed to create subscription', error as Error);
+	}
+};
+
+const getBookSubscription = async (req: Request, res: Response) => {
+	try {
+		const userId = req.params.userId;
+		const subscription = await serviceContainer.getBookSubscriptionService(
+			userId
+		);
+		successResponse(res, 'Fetched Successfully', subscription, 200);
+	} catch (error) {
+		errorResponse(res, 'Failed to find subscription(s)', error as Error);
+	}
+};
+
 export {
 	getABook,
 	getAllBooks,
@@ -135,5 +172,8 @@ export {
 	updateUserDetail,
 	getWishlist,
 	updateWishlist,
-	getCartItems
+	getCartItems,
+	updateCart,
+	addBookSubscription,
+	getBookSubscription
 };
