@@ -3,7 +3,13 @@ import {
 	getAllBooks,
 	getAGenreBooks,
 	searchBook,
-	filterProducts
+	filterProducts,
+	getOrders,
+	getUserDetail,
+	updateUserDetail,
+	getWishlist,
+	updateWishlist,
+	getCartItems
 } from './user.controller';
 
 const controllerContainer = {
@@ -11,7 +17,13 @@ const controllerContainer = {
 	getAllBooks,
 	getAGenreBooks,
 	searchBook,
-	filterProducts
+	filterProducts,
+	getOrders,
+	getUserDetail,
+	updateUserDetail,
+	getWishlist,
+	updateWishlist,
+	getCartItems
 };
 
 export {controllerContainer};
