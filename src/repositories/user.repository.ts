@@ -84,7 +84,7 @@ const updateWishlistRepo = async (userId: string, _wishlistItems: any) => {
 const getCartItemsRepo = async (userId: string) => {
 	// const cartItems = `You Got the ${userId} cart items`;
 	const cartDetails: ObjectIndexer = {};
-	const cartId = await User.findOne({ user_id: userId }, { projection: { cart: 1 } });
+	const cartId = await User.findOne({user_id: userId}, {projection: {cart: 1}});
 	const cartObj = await Cart.findOne({
 		cart_id: cartId
 	});
