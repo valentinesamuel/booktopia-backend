@@ -33,7 +33,9 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
   "include": [
-    "src/**/*", "./encryption.ts",
+    "src/**/*",
+    "./encryption.ts",
+    "./encryption2.ts"
   ],
   "exclude": [
     "node_modules/*"

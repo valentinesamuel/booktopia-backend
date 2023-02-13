@@ -50,55 +50,47 @@ const UserSchema = new Schema({
 		unique: true
 	},
 	shipping_address: {
-		user_id: {
-			type: String,
-			required: true
-		},
 		street: {
 			type: String,
-			required: true
+			required: false
 		},
 		state: {
 			type: String,
-			required: true
+			required: false
 		},
 		zip_code: {
 			type: String,
-			required: true
+			required: false
 		},
 		country: {
 			type: String,
-			required: true
+			required: false
 		},
 		phone_number: {
 			type: Number,
-			required: true
+			required: false
 		}
 	},
 	billing_address: {
-		user_id: {
-			type: String,
-			required: true
-		},
 		street: {
 			type: String,
-			required: true
+			required: false
 		},
 		state: {
 			type: String,
-			required: true
+			required: false
 		},
 		zip_code: {
 			type: String,
-			required: true
+			required: false
 		},
 		country: {
 			type: String,
-			required: true
+			required: false
 		},
 		phone_number: {
 			type: Number,
-			required: true
+			required: false
 		}
 	},
 	subscribed_to_newsletter: {
