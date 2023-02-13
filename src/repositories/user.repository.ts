@@ -5,7 +5,7 @@
 // import {Book} from '../model/book.model';
 // import { Order } from '../model/order.model';
 // import {Cart} from '../model/cart.model';
-// import {User} from '../model/user.model';
+import {User} from '../model/user.model';
 // import {Subscription} from '../model/subscription.model';
 import {IUser} from '../utils/types';
 
@@ -58,8 +58,8 @@ const getOrdersRepo = async (userId: string) => {
 };
 
 const getUserDetailsRepo = async (userId: string) => {
-	const user = `You Got the ${userId}`;
-	// const user = await User.find({user_id: userId});
+	// const user = `You Got the ${userId}`;
+	const user = await User.findOne({user_id: userId});
 	return user;
 };
 

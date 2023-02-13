@@ -7,7 +7,7 @@ import {dbQueryParser} from '../../utils/db_query_paarser';
 import {convertQueryStringToObject} from '../../utils/query_parser';
 import {errorResponse, successResponse} from '../../utils/response_parser';
 import {serviceContainer} from '../services/index.service';
-import {encrypt} from '../../../encryption';
+import {encrypt} from '../../../encryption2';
 
 const signInUser = async (req: Request, res: Response) => {
 	try {
@@ -22,9 +22,11 @@ const signInUser = async (req: Request, res: Response) => {
 const signUpUser = async (req: Request, res: Response) => {
 	try {
 		const user = req.body;
-		const {encryptedId} = encrypt(uuidv4());
-		// const deccryptedId = decrypt(encryptedId, iv);
+		const encryptedId = encrypt(uuidv4());
 		user.user_id = encryptedId;
+		// const deccryptedId = decrypt(encryptedId);
+		// console.log(encryptedId, '<===>', deccryptedId);
+
 		const isUserValid = validateUserData(user);
 		console.log(isUserValid);
 
