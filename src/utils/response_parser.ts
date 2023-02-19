@@ -86,7 +86,7 @@ const errorResponse = (
 		errMessage = message;
 	}
 	const stringifiedError = getErrorMessage(error);
-	return res.status(status).send({
+	return res.status(status).json({
 		error: {
 			stringifiedError,
 			code: status,

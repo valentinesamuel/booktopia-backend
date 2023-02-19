@@ -2,7 +2,7 @@
 
 import {v4 as uuidv4} from 'uuid';
 import {Request, Response} from 'express';
-import {validateUserData} from '../../validations/user.validation';
+import {validateSignUpUserData} from '../../validations/user.validation';
 import {dbQueryParser} from '../../utils/db_query_paarser';
 import {convertQueryStringToObject} from '../../utils/query_parser';
 import {errorResponse, successResponse} from '../../utils/response_parser';
@@ -24,23 +24,23 @@ const signUpUser = async (req: Request, res: Response) => {
 		const user = req.body;
 		const encryptedId = encrypt(uuidv4());
 		user.user_id = encryptedId;
-		// const deccryptedId = decrypt(encryptedId);
-		// console.log(encryptedId, '<===>', deccryptedId);
 
-		const isUserValid = validateUserData(user);
-		console.log(isUserValid);
-
-		if (isUserValid.error) {
+		const {error, value} = validateSignUpUserData(user);
+		if (error) {
 			errorResponse(
 				res,
-				'Failed to signup the user',
-				isUserValid.error as Error
+				'Error encountered',
+				new Error(error.details[0].message),
+				404
 			);
+		} else {
+			// const deccryptedId = decrypt(encryptedId);
+			// console.log(encryptedId, '<===>', deccryptedId);
+			const signedUpUser = await serviceContainer.signInUserService(value);
+			successResponse(res, 'Fetched successfully', signedUpUser, 200);
 		}
-		const signedUpUser = await serviceContainer.signInUserService(user);
-		successResponse(res, 'Fetched successfully', signedUpUser, 200);
 	} catch (error) {
-		errorResponse(res, 'Failed to signup the user', error as Error);
+		errorResponse(res, 'Error', error as Error, 404);
 	}
 };
 
