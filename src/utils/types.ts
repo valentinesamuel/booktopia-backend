@@ -12,6 +12,8 @@ export interface IUser {
 	shipping_address: IShippingAddress
 	billing_address: IBillingAddress
 	subscribed_to_newsletter: boolean
+	salt: string
+	hash: string
 }
 
 export interface IBook {

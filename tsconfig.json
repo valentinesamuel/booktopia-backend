@@ -35,7 +35,8 @@
   "include": [
     "src/**/*",
     "./encryption.ts",
-    "./encryption2.ts"
+    "./encryption2.ts",
+    "./hasher.ts"
   ],
   "exclude": [
     "node_modules/*"

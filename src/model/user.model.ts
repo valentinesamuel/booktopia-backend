@@ -26,8 +26,16 @@ const UserSchema = new Schema({
 		unique: true
 	},
 	password: {
-		type: String,
-		required: true
+		salt: {
+			type: String,
+			required: true,
+			unique: true
+		},
+		hash: {
+			type: String,
+			required: true,
+			unique: true
+		}
 	},
 	user_id: {
 		type: String,
@@ -44,6 +52,7 @@ const UserSchema = new Schema({
 		required: false,
 		unique: true
 	},
+
 	cart: {
 		type: String,
 		required: false,
