@@ -2,18 +2,38 @@
 
 import {v4 as uuidv4} from 'uuid';
 import {Request, Response} from 'express';
-import {validateSignUpUserData} from '../../validations/user.validation';
+import {
+	validateSiginUserData,
+	validateSignUpUserData
+} from '../../validations/user.validation';
 import {dbQueryParser} from '../../utils/db_query_paarser';
 import {convertQueryStringToObject} from '../../utils/query_parser';
 import {errorResponse, successResponse} from '../../utils/response_parser';
 import {serviceContainer} from '../services/index.service';
 import {encrypt} from '../../../encryption2';
+import {hashPassword, verifyPassword} from '../../../hasher';
 
 const signInUser = async (req: Request, res: Response) => {
 	try {
 		const user = req.body;
-		const signedInUser = await serviceContainer.signInUserService(user);
-		successResponse(res, 'Fetched successfully', signedInUser, 200);
+		const {error, value} = validateSiginUserData(user);
+		if (error) {
+			errorResponse(res, 'Error encountered', error, 404);
+		} else {
+			const {email, password} = req.body;
+			const userExists = await verifyPassword(email, password);
+			if (userExists) {
+				const signedInUser = await serviceContainer.signInUserService(value);
+				successResponse(res, 'Fetched successfully', signedInUser, 200);
+			} else {
+				errorResponse(
+					res,
+					'Unknown User',
+					new Error('Incorrect credentials'),
+					404
+				);
+			}
+		}
 	} catch (error) {
 		errorResponse(res, 'Failed to signin the user', error as Error);
 	}
@@ -22,21 +42,19 @@ const signInUser = async (req: Request, res: Response) => {
 const signUpUser = async (req: Request, res: Response) => {
 	try {
 		const user = req.body;
-		const encryptedId = encrypt(uuidv4());
-		user.user_id = encryptedId;
-
 		const {error, value} = validateSignUpUserData(user);
 		if (error) {
-			errorResponse(
-				res,
-				'Error encountered',
-				new Error(error.details[0].message),
-				404
-			);
+			errorResponse(res, 'Error encountered', error, 404);
 		} else {
-			// const deccryptedId = decrypt(encryptedId);
-			// console.log(encryptedId, '<===>', deccryptedId);
-			const signedUpUser = await serviceContainer.signInUserService(value);
+			const encryptedId = encrypt(uuidv4());
+			const hashedPaswword = hashPassword(user.password);
+
+			value.user_id = encryptedId;
+			value.password = hashedPaswword;
+			delete value.confirmPassword;
+			const signedUpUser = await serviceContainer.signUpUserService(value);
+			console.log(value, '\n', signedUpUser);
+
 			successResponse(res, 'Fetched successfully', signedUpUser, 200);
 		}
 	} catch (error) {

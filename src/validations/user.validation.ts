@@ -10,7 +10,7 @@ export const validateSignUpUserData = (user: IUser) => {
 		email: Joi.string().min(4).email().required(),
 		password: Joi.string().min(8).max(32).required(),
 		confirmPassword: Joi.string().valid(Joi.ref('password')).required(),
-		user_id: Joi.string().required(),
+		user_id: Joi.string(),
 		wishlisted_books: Joi.array().items(Joi.string()),
 		order_history: Joi.array().items(Joi.string()),
 		cart: Joi.string(),
@@ -37,8 +37,6 @@ export const validateSignUpUserData = (user: IUser) => {
 
 export const validateSiginUserData = (user: IUser) => {
 	const userSchema = Joi.object({
-		first_name: Joi.string().min(2).max(36).required(),
-		last_name: Joi.string().min(2).max(36).required(),
 		email: Joi.string().min(4).email().required(),
 		password: Joi.string().min(8).max(32).required()
 	});

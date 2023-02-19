@@ -5,7 +5,7 @@
 // import {Book} from '../model/book.model';
 // import { Order } from '../model/order.model';
 // import {Cart} from '../model/cart.model';
-import {User} from '../model/user.model';
+// import {User} from '../model/user.model';
 // import {Subscription} from '../model/subscription.model';
 import {IUser} from '../utils/types';
 
@@ -57,9 +57,16 @@ const getOrdersRepo = async (userId: string) => {
 	return order;
 };
 
-const getUserDetailsRepo = async (userId: string) => {
-	// const user = `You Got the ${userId}`;
-	const user = await User.findOne({user_id: userId});
+const getUserDetailsRepo = async (_userId: string) => {
+	const user = {
+		user_id: 'aerhgqaienu450q935nq45',
+		email: 'john@doe.com',
+		password: {
+			hash: 'asentrowsjtphwet',
+			salt: 'srtjn0pw540-w4j5w29048h52u95ju=3'
+		}
+	};
+	// const user = await User.findOne({user_id: userId});
 	return user;
 };
 
