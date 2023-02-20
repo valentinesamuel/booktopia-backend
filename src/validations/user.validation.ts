@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import {IUser} from '../utils/types';
 
-export const validateSignUpUserData = (user: IUser) => {
+export const validateSignUpUserData = (user: any) => {
 	const userSchema = Joi.object({
 		created_at: Joi.date().default(Date.now),
 		updated_at: Joi.date().default(Date.now),
@@ -11,7 +11,7 @@ export const validateSignUpUserData = (user: IUser) => {
 		password: Joi.string().min(8).max(32).required(),
 		confirmPassword: Joi.string().valid(Joi.ref('password')).required(),
 		user_id: Joi.string(),
-		wishlisted_books: Joi.array().items(Joi.string()),
+		wishlist: Joi.array().items(Joi.string()),
 		order_history: Joi.array().items(Joi.string()),
 		cart: Joi.string(),
 		shipping_address: Joi.object({

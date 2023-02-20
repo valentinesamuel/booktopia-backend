@@ -12,7 +12,7 @@ import {errorResponse, successResponse} from '../../utils/response_parser';
 import {serviceContainer} from '../services/index.service';
 import {encrypt} from '../../../encryption2';
 import {hashPassword, verifyPassword} from '../../../hasher';
-// import {addSession} from '../../utils/cookie_maker';
+import {createSession} from '../../utils/cookie_maker';
 
 const signInUser = async (req: Request, res: Response) => {
 	try {
@@ -25,14 +25,23 @@ const signInUser = async (req: Request, res: Response) => {
 			const userExists = await verifyPassword(email, password);
 			if (userExists) {
 				// eslint-disable-next-line @typescript-eslint/naming-convention
-				const {first_name, last_name, user_id} =
+				const {first_name, last_name, user_id, subscribed_to_newsletter} =
 					await serviceContainer.signInUserService(value);
-				successResponse(
-					res,
-					'Fetched successfully',
-					{first_name, last_name, user_id},
-					200
-				);
+				console.log({
+					first_name,
+					last_name,
+					user_id,
+					subscribed_to_newsletter
+				});
+
+				await createSession(req, res, {
+					first_name,
+					last_name,
+					email,
+					user_id,
+					subscribed_to_newsletter
+				});
+				successResponse(res, 'Fetched successfully', value, 200);
 			} else {
 				errorResponse(
 					res,
@@ -50,37 +59,34 @@ const signInUser = async (req: Request, res: Response) => {
 const signUpUser = async (req: Request, res: Response) => {
 	try {
 		const user = req.body;
-		const {error, value} = validateSignUpUserData(user);
+		const {error} = validateSignUpUserData(user);
 		if (error) {
 			errorResponse(res, 'Error encountered', error, 404);
 		} else {
 			const encryptedId = encrypt(uuidv4());
 			const hashedPaswword = hashPassword(user.password);
 
-			value.user_id = encryptedId;
-			value.password = hashedPaswword;
-			delete value.confirmPassword;
-			const newUser = await serviceContainer.signUpUserService(value);
+			user.user_id = encryptedId;
+			user.password = hashedPaswword;
+			delete user.confirmPassword;
+			console.log(user);
+
+			const newUser = await serviceContainer.signUpUserService(user);
 			console.log(newUser);
+			console.log('You have been signed up');
 
 			// eslint-disable-next-line @typescript-eslint/naming-convention
-			// const {first_name, last_name, user_id, email, subscribed_to_newsletter} =
-			// 	newUser;
-			// if (newUser) {
-			// 	const sessionId = await addSession({
-			// 		first_name,
-			// 		last_name,
-			// 		user_id,
-			// 		email,
-			// 		subscribed_to_newsletter
-			// 	});
-			// 	if (res.cookie) {
-			// 		console.log(res.cookie);
-			// 	} else {
-			// 		res.cookie.session_id = sessionId;
-			// 	}
-			// 	console.log(req.session);
-			// }
+			const {first_name, last_name, user_id, email, subscribed_to_newsletter} =
+				newUser;
+			if (newUser) {
+				await createSession(req, res, {
+					first_name,
+					last_name,
+					user_id,
+					email,
+					subscribed_to_newsletter
+				});
+			}
 
 			successResponse(res, 'Fetched successfully', {newUser}, 200);
 		}

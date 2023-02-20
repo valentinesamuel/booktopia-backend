@@ -2,7 +2,7 @@
 import express, {Application, NextFunction, Request, Response} from 'express';
 import morgan from 'morgan';
 import * as dotenv from 'dotenv';
-import cookieSession from 'cookie-session';
+import cookieParser from 'cookie-parser';
 import {errorResponse} from './utils/response_parser';
 import {userRouter} from './v1/routes/user.router';
 import {adminRouter} from './v1/routes/admin.router';
@@ -13,15 +13,9 @@ const app: Application = express();
 // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
 const PORT = process.env.PORT_NUMBER || 8000;
 
-app.use(
-	cookieSession({
-		name: 'cookieSession',
-		keys: ['key1', 'key2'],
-		maxAge: 24 * 60 * 60 * 1000
-	})
-);
 app.use(morgan('combined'));
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/admin', adminRouter);

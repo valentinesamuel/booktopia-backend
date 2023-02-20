@@ -6,7 +6,7 @@ export interface IUser {
 	email: string
 	user_id: string
 	password: string
-	wishlisted_books: IWishlistedBooks
+	wishlist: IWishlistedBooks
 	order_history: IOrderHistory
 	cart: ICart // the id of the cart and an array of cart items
 	shipping_address: IShippingAddress

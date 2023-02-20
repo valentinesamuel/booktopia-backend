@@ -44,19 +44,15 @@ const UserSchema = new Schema({
 	},
 	wishlist: {
 		type: [String],
-		required: false,
-		unique: true
+		required: false
 	},
 	order_history: {
 		type: [String],
-		required: false,
-		unique: true
+		required: false
 	},
-
 	cart: {
 		type: String,
-		required: false,
-		unique: true
+		required: false
 	},
 	shipping_address: {
 		street: {
