@@ -5,19 +5,27 @@
 // import {Book} from '../model/book.model';
 // import { Order } from '../model/order.model';
 // import {Cart} from '../model/cart.model';
-// import {User} from '../model/user.model';
+import {User} from '../model/user.model';
 // import {Subscription} from '../model/subscription.model';
-import {IUser} from '../utils/types';
 
-const signUpUser = async (_user: any) => {
-	// const newUser = await User.create(user);
-	const newUser = 'New user created';
+const signUpUser = async (user: any) => {
+	const newUser = await User.create(user);
+	// const newUser = 'New user created';
 	return newUser;
 };
 
-const signInUser = async (_user: IUser) => {
-	// const signedInUser = await User.findOne({email: user.email});
-	const signedInUser = 'User has been signed in';
+const signInUser = async (user: any) => {
+	const signedInUser = await User.findOne(
+		{email: user.email},
+		{email: 1, first_name: 1, last_name: 1, user_id: 1, password: 1}
+	);
+	// const signedInUser = {
+	// 	first_name: 'John',
+	// 	last_name: 'Doe',
+	// 	user_id:
+	// 		'19cbd923b9308ad0cc9ae37592fce738ad667c908de20ee2fc3739b8203ea30ef5bad833f66bcb54cf53cc44496c820d19cbd923b9308ad0cc9ae37592fce738ad667c908de20ee2fc3739b8203ea30ef5bad833f66bcb54cf53cc44496c820d:852cbedd4c782830dacdb2dab2b057e5',
+	// 	email: 'john@doe.com'
+	// };
 	return signedInUser;
 };
 
@@ -57,16 +65,8 @@ const getOrdersRepo = async (userId: string) => {
 	return order;
 };
 
-const getUserDetailsRepo = async (_userId: string) => {
-	const user = {
-		user_id: 'aerhgqaienu450q935nq45',
-		email: 'john@doe.com',
-		password: {
-			hash: 'asentrowsjtphwet',
-			salt: 'srtjn0pw540-w4j5w29048h52u95ju=3'
-		}
-	};
-	// const user = await User.findOne({user_id: userId});
+const getUserDetailsRepo = async (email: string) => {
+	const user = await User.findOne({email});
 	return user;
 };
 

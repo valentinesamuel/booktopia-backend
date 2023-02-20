@@ -2,16 +2,24 @@
 import express, {Application, NextFunction, Request, Response} from 'express';
 import morgan from 'morgan';
 import * as dotenv from 'dotenv';
-
+import cookieSession from 'cookie-session';
 import {errorResponse} from './utils/response_parser';
 import {userRouter} from './v1/routes/user.router';
 import {adminRouter} from './v1/routes/admin.router';
+import {mongodbConnect} from './config/mongodb';
 dotenv.config();
 
 const app: Application = express();
 // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
 const PORT = process.env.PORT_NUMBER || 8000;
 
+app.use(
+	cookieSession({
+		name: 'cookieSession',
+		keys: ['key1', 'key2'],
+		maxAge: 24 * 60 * 60 * 1000
+	})
+);
 app.use(morgan('combined'));
 app.use(express.json());
 
@@ -25,7 +33,7 @@ app.use((_req: Request, res: Response, _next: NextFunction) => {
 
 const bootstrap = async () => {
 	try {
-		// await mongodbConnect();
+		await mongodbConnect();
 		app.listen(PORT, () => {
 			console.log(
 				`Server is listening on port ${PORT}...\nVisit http://localhost:${PORT}/`

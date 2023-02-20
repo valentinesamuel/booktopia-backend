@@ -11,9 +11,6 @@ export const encrypt = (id: string) => {
 	let encryptedId = cipher.update(id, 'utf8', 'hex');
 	encryptedId += cipher.final('hex');
 
-	console.log('Original ID:', id);
-	console.log('Encrypted ID:', encryptedId);
-	console.log(`${encryptedId}:${encryptedIv.toString('hex')}`);
 	return `${encryptedId}:${encryptedIv.toString('hex')}`;
 };
 

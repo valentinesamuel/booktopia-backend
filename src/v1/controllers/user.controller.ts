@@ -12,6 +12,7 @@ import {errorResponse, successResponse} from '../../utils/response_parser';
 import {serviceContainer} from '../services/index.service';
 import {encrypt} from '../../../encryption2';
 import {hashPassword, verifyPassword} from '../../../hasher';
+// import {addSession} from '../../utils/cookie_maker';
 
 const signInUser = async (req: Request, res: Response) => {
 	try {
@@ -23,8 +24,15 @@ const signInUser = async (req: Request, res: Response) => {
 			const {email, password} = req.body;
 			const userExists = await verifyPassword(email, password);
 			if (userExists) {
-				const signedInUser = await serviceContainer.signInUserService(value);
-				successResponse(res, 'Fetched successfully', signedInUser, 200);
+				// eslint-disable-next-line @typescript-eslint/naming-convention
+				const {first_name, last_name, user_id} =
+					await serviceContainer.signInUserService(value);
+				successResponse(
+					res,
+					'Fetched successfully',
+					{first_name, last_name, user_id},
+					200
+				);
 			} else {
 				errorResponse(
 					res,
@@ -52,10 +60,29 @@ const signUpUser = async (req: Request, res: Response) => {
 			value.user_id = encryptedId;
 			value.password = hashedPaswword;
 			delete value.confirmPassword;
-			const signedUpUser = await serviceContainer.signUpUserService(value);
-			console.log(value, '\n', signedUpUser);
+			const newUser = await serviceContainer.signUpUserService(value);
+			console.log(newUser);
 
-			successResponse(res, 'Fetched successfully', signedUpUser, 200);
+			// eslint-disable-next-line @typescript-eslint/naming-convention
+			// const {first_name, last_name, user_id, email, subscribed_to_newsletter} =
+			// 	newUser;
+			// if (newUser) {
+			// 	const sessionId = await addSession({
+			// 		first_name,
+			// 		last_name,
+			// 		user_id,
+			// 		email,
+			// 		subscribed_to_newsletter
+			// 	});
+			// 	if (res.cookie) {
+			// 		console.log(res.cookie);
+			// 	} else {
+			// 		res.cookie.session_id = sessionId;
+			// 	}
+			// 	console.log(req.session);
+			// }
+
+			successResponse(res, 'Fetched successfully', {newUser}, 200);
 		}
 	} catch (error) {
 		errorResponse(res, 'Error', error as Error, 404);
