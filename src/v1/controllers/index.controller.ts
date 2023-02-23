@@ -1,6 +1,4 @@
 import {
-	signInUser,
-	signUpUser,
 	getABook,
 	getAllBooks,
 	getAGenreBooks,
@@ -16,10 +14,12 @@ import {
 	addBookSubscription,
 	getBookSubscription
 } from './user.controller';
+import {signInUser, signUpUser, signOutUser} from './auth.controller';
 
 const controllerContainer = {
 	signInUser,
 	signUpUser,
+	signOutUser,
 	getABook,
 	getAllBooks,
 	getAGenreBooks,

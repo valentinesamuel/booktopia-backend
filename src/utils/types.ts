@@ -170,3 +170,11 @@ export interface IGiftCard {
 	phone_number: number
 	pin: number
 }
+
+export interface ISession {
+	created_at: Date
+	updated_at: Date
+	expires_at: Date
+	session_id: string
+	data: any
+}

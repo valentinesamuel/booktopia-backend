@@ -1,40 +1,62 @@
 import {Session} from '../model/sessions.model';
 import {v4 as uuidv4} from 'uuid';
-import {Request, Response} from 'express';
+import {NextFunction, Request, Response} from 'express';
 
 export const createSession = async (
-	_req: Request,
+	req: Request,
 	res: Response,
-	data: any
+	data: any,
+	cookieName: string
 ) => {
 	// eslint-disable-next-line @typescript-eslint/naming-convention
-	const {user_id, email, first_name, last_name, subscribed_to_newsletter} =
-		data;
+	const {user_id, email, first_name, last_name} = data;
+	const expiresAt = new Date().setMinutes(new Date().getMinutes() + 60);
+	const sessionId = uuidv4();
 	const sessionData = {
 		user_id,
 		email,
 		first_name,
 		last_name,
-		subscribed_to_newsletter
+		expiresAt
 	};
 
-	const expiresAt = new Date().setFullYear(new Date().getFullYear() + 1);
-	const sessionId = uuidv4();
-
-	const sessionToken = {session_id: sessionId, expiresAt, data: sessionData};
+	const sessionToken = {
+		session_id: sessionId,
+		expires_at: expiresAt,
+		data: sessionData
+	};
 	const storeSess = await Session.create(sessionToken);
 
-	res.cookie('session_token', storeSess, {maxAge: expiresAt});
-
-	// return sessionId;
-	// next();
+	res.cookie(cookieName, storeSess, {maxAge: expiresAt});
+	console.log(req.cookies);
 };
 
-export const checkSession = async (req: Request, _res: Response) => {
-	// check if the cookie-session exists in the db
-	// or
-	// check if the curernt user email exists in the db
+export const checkSession = async (
+	req: Request,
+	_res: Response,
+	next: NextFunction
+) => {
+	const storedSession = req.cookies.user_data;
+	if (storedSession === undefined || storedSession === null) {
+		// no session token in cookie
+		next();
+	}
+	const session: any = await Session.findOne({
+		session_id: storedSession.session_id
+	});
+	if (session === undefined || session === null) {
+		// session not found in database
+		next();
+	}
+	if (session !== null || session.expires_at > new Date()) {
+		// session has expired
+		await Session.deleteOne({session_id: storedSession.session_id});
+		req.cookies.user_data = null;
+		next();
+	}
 
+	req.cookies = session;
 	// if the cookie has expired, redirect the request to sign in
-	req.cookies();
+	console.log(req.cookies.user_data);
+	next();
 };

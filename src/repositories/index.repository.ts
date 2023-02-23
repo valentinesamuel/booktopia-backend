@@ -11,10 +11,9 @@ import {
 	getCartItemsRepo,
 	updateCartRepo,
 	addBookSubscriptionRepo,
-	getBookSubscriptionsRepo,
-	signInUser,
-	signUpUser
+	getBookSubscriptionsRepo
 } from './user.repository';
+import {signInUser, signUpUser} from './auth.repository';
 
 const repositoryContainer = {
 	getABookRepo,

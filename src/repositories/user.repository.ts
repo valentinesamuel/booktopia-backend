@@ -8,26 +8,6 @@
 import {User} from '../model/user.model';
 // import {Subscription} from '../model/subscription.model';
 
-const signUpUser = async (user: any) => {
-	const newUser = await User.create(user);
-	return newUser;
-};
-
-const signInUser = async (user: any) => {
-	const signedInUser = await User.findOne(
-		{email: user.email},
-		{email: 1, first_name: 1, last_name: 1, user_id: 1, password: 1}
-	);
-	// const signedInUser = {
-	// 	first_name: 'John',
-	// 	last_name: 'Doe',
-	// 	user_id:
-	// 		'19cbd923b9308ad0cc9ae37592fce738ad667c908de20ee2fc3739b8203ea30ef5bad833f66bcb54cf53cc44496c820d19cbd923b9308ad0cc9ae37592fce738ad667c908de20ee2fc3739b8203ea30ef5bad833f66bcb54cf53cc44496c820d:852cbedd4c782830dacdb2dab2b057e5',
-	// 	email: 'john@doe.com'
-	// };
-	return signedInUser;
-};
-
 const getAllBooksRepo = async () => {
 	const book = 'You Got all the books';
 	// const book = await Book.find({});
@@ -143,8 +123,6 @@ const getBookSubscriptionsRepo = async (_userId: string) => {
 };
 
 export {
-	signUpUser,
-	signInUser,
 	getABookRepo,
 	getAllBooksRepo,
 	getAGenreBooksRepo,

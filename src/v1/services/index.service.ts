@@ -1,7 +1,5 @@
 import {
 	getABookService,
-	signInUserService,
-	signUpUserService,
 	getAllBooksService,
 	getAGenreBooksService,
 	searchService,
@@ -15,6 +13,7 @@ import {
 	addBookSubscriptionService,
 	getBookSubscriptionService
 } from './user.service';
+import {signInUserService, signUpUserService} from './auth.service';
 
 const serviceContainer = {
 	signInUserService,
