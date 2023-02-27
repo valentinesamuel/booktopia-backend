@@ -1,3 +1,5 @@
+import {Genre} from '..//model/genre.model';
+
 // eslint-disable-next-line @typescript-eslint/member-delimiter-style
 const dbQueryParser = (query: any) => {
 	const {genre, price, rating} = query;
@@ -23,4 +25,9 @@ const dbQueryParser = (query: any) => {
 
 	return queryObject;
 };
-export {dbQueryParser};
+
+const getGenreIdByName = async (genre: string) => {
+	const genreDoc = await Genre.findOne({genre});
+	return genreDoc?.genre_id;
+};
+export {dbQueryParser, getGenreIdByName};

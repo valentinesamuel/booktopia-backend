@@ -5,6 +5,7 @@
 // import {Book} from '../model/book.model';
 // import { Order } from '../model/order.model';
 // import {Cart} from '../model/cart.model';
+// import {getGenreIdByName} from '../utils/db_query_paarser';
 import {User} from '../model/user.model';
 // import {Subscription} from '../model/subscription.model';
 
@@ -20,14 +21,9 @@ const getABookRepo = async (_bookId: string) => {
 	return book;
 };
 
-// const getGenreIdByName = async (genre: string) => {
-// 	const genreDoc = await Genre.findOne({genre});
-// 	return genreDoc?.genre_id;
-// };
-
 const getAGenreBooksRepo = async (genreName: string) => {
 	const book = `You Got all the ${genreName} books`;
-	// const genreId = await getGenreIdByName(genreName)
+	// const genreId = await getGenreIdByName(genreName);
 	// const book = await Book.find({genre_id: genreId});
 	return book;
 };

@@ -14,6 +14,24 @@ import {
 	getBookSubscriptionsRepo
 } from './user.repository';
 import {signInUser, signUpUser} from './auth.repository';
+import {
+	adminAddBookRepo,
+	adminDeleteBookRepo,
+	adminGetBookRepo,
+	adminGetBooksRepo,
+	adminGetDonationsRepo,
+	adminGetGenreBooksRepo,
+	adminGetOrdersRepo,
+	adminGetSubscriptionsRepo,
+	adminGetUserBookSubscriptionsRepo,
+	adminGetUserCartItemsRepo,
+	adminGetUserDonationsRepo,
+	adminGetUserOrdersRepo,
+	adminGetUserRepo,
+	adminSearchBookRepo,
+	adminGetUsersRepo,
+	adminUpdateBookRepo
+} from './admin.repository';
 
 const repositoryContainer = {
 	getABookRepo,
@@ -29,8 +47,26 @@ const repositoryContainer = {
 	updateCartRepo,
 	addBookSubscriptionRepo,
 	getBookSubscriptionsRepo,
+
 	signInUser,
-	signUpUser
+	signUpUser,
+
+	adminAddBookRepo,
+	adminDeleteBookRepo,
+	adminGetBookRepo,
+	adminGetBooksRepo,
+	adminGetDonationsRepo,
+	adminGetGenreBooksRepo,
+	adminGetOrdersRepo,
+	adminGetSubscriptionsRepo,
+	adminGetUserBookSubscriptionsRepo,
+	adminGetUserCartItemsRepo,
+	adminGetUserDonationsRepo,
+	adminGetUserOrdersRepo,
+	adminGetUserRepo,
+	adminSearchBookRepo,
+	adminGetUsersRepo,
+	adminUpdateBookRepo
 };
 
 export {repositoryContainer};

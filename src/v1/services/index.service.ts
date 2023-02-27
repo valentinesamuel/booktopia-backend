@@ -14,6 +14,25 @@ import {
 	getBookSubscriptionService
 } from './user.service';
 import {signInUserService, signUpUserService} from './auth.service';
+import {
+	adminSearchService,
+	adminAddBookService,
+	adminDeleteBookService,
+	adminGetBookService,
+	adminGetBooksService,
+	adminGetDonationsService,
+	adminGetGenreBooksService,
+	adminGetOrdersService,
+	adminGetSubscriptionsService,
+	adminGetUserBookSubscriptionsService,
+	adminGetUserCartItemsService,
+	adminGetUserDonationsService,
+	adminGetUserOrdersService,
+	adminGetUserService,
+	adminGetUsersService,
+	adminSearchBookService,
+	adminUpdateBookService
+} from './admin.service';
 
 const serviceContainer = {
 	signInUserService,
@@ -30,7 +49,24 @@ const serviceContainer = {
 	getCartItemsService,
 	updateCartService,
 	addBookSubscriptionService,
-	getBookSubscriptionService
+	getBookSubscriptionService,
+	adminSearchService,
+	adminAddBookService,
+	adminDeleteBookService,
+	adminGetBookService,
+	adminGetBooksService,
+	adminGetDonationsService,
+	adminGetGenreBooksService,
+	adminGetOrdersService,
+	adminGetSubscriptionsService,
+	adminGetUserBookSubscriptionsService,
+	adminGetUserCartItemsService,
+	adminGetUserDonationsService,
+	adminGetUserOrdersService,
+	adminGetUserService,
+	adminSearchBookService,
+	adminUpdateBookService,
+	adminGetUsersService
 };
 
 export {serviceContainer};

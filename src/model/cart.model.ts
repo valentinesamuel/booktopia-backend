@@ -1,4 +1,3 @@
-import {string} from 'joi';
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
@@ -21,7 +20,7 @@ const CartSchema = new Schema({
 		required: true,
 		unique: true
 	},
-	cart_items: {type: [string], required: false},
+	cart_items: {type: [String], required: false},
 	sub_total: {
 		type: Number,
 		required: true

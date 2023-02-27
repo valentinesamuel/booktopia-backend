@@ -125,7 +125,7 @@ const signOutUser = async (
 		}
 		if (session?.expires_at > new Date()) {
 			await Session.deleteOne({session_id: storedSession.session_id});
-			req.cookies.user_data = null;
+			// req.cookies.user_data = null;
 		}
 	}
 	successResponse(res, 'Su8ccessfully logged out', {}, 200);

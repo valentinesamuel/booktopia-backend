@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import express, {Application, NextFunction, Request, Response} from 'express';
 import morgan from 'morgan';
+import fileUpload from 'express-fileupload';
 import * as dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import {errorResponse} from './utils/response_parser';
@@ -18,6 +19,8 @@ const PORT = process.env.PORT_NUMBER || 8000;
 app.use(morgan('combined'));
 app.use(express.json());
 app.use(cookieParser());
+app.use(fileUpload());
+
 app.use('/api/v1/auth', authRouter);
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 app.use(async (req: Request, res: Response, next: NextFunction) => {
@@ -25,7 +28,6 @@ app.use(async (req: Request, res: Response, next: NextFunction) => {
 	const storedSession = req.cookies.user_data;
 	if (storedSession === undefined || storedSession === null) {
 		errorResponse(res, 'Who you be', Error('Sign In or Up'), 404);
-		return;
 	} else {
 		const session: any = await Session.findOne({
 			session_id: storedSession.session_id
@@ -42,18 +44,17 @@ app.use(async (req: Request, res: Response, next: NextFunction) => {
 			next();
 		}
 		req.cookies = session;
-		next();
+		// next(); THis causes and ERR_HTTP_HEADERS_SENT error
 	}
-	console.log(req.cookies);
+	// console.log(req.cookies);
 });
 
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/admin', adminRouter);
 
-app.use((_req: Request, res: Response, _next: NextFunction) => {
-	const error = new Error('Route not found');
-	errorResponse(res, 'Not Found', error, 404);
-});
+// app.use((_req: Request, res: Response, _next: NextFunction) => {
+// 	res.status(408).json('error route');
+// });
 
 const bootstrap = async () => {
 	try {

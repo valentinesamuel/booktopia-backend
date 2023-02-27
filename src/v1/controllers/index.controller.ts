@@ -15,6 +15,25 @@ import {
 	getBookSubscription
 } from './user.controller';
 import {signInUser, signUpUser, signOutUser} from './auth.controller';
+import {
+	adminSearchBook,
+	adminAddBook,
+	adminAddBookSubscription,
+	adminDeleteBook,
+	adminGetBook,
+	adminGetBooks,
+	adminGetDonations,
+	adminGetGenreBooks,
+	adminGetOrders,
+	adminGetSubscriptions,
+	adminGetUser,
+	adminGetUserBookSubscriptions,
+	adminGetUserCartItems,
+	adminGetUserDonations,
+	adminGetUserOrder,
+	adminUpdateBook,
+	adminGetUsers
+} from './admin.controller';
 
 const controllerContainer = {
 	signInUser,
@@ -33,7 +52,24 @@ const controllerContainer = {
 	getCartItems,
 	updateCart,
 	addBookSubscription,
-	getBookSubscription
+	getBookSubscription,
+	adminSearchBook,
+	adminAddBook,
+	adminAddBookSubscription,
+	adminDeleteBook,
+	adminGetBook,
+	adminGetBooks,
+	adminGetDonations,
+	adminGetGenreBooks,
+	adminGetOrders,
+	adminGetSubscriptions,
+	adminGetUser,
+	adminGetUsers,
+	adminGetUserBookSubscriptions,
+	adminGetUserCartItems,
+	adminGetUserDonations,
+	adminGetUserOrder,
+	adminUpdateBook
 };
 
 export {controllerContainer};
