@@ -111,6 +111,7 @@ const signOutUser = async (
 			Error('Sign In or Up'),
 			404
 		);
+		return;
 	} else {
 		const session: any = await Session.findOne({
 			session_id: storedSession.session_id

@@ -24,7 +24,6 @@ app.use(async (req: Request, res: Response, next: NextFunction) => {
 	console.log(req.cookies.user_data);
 	const storedSession = req.cookies.user_data;
 	if (storedSession === undefined || storedSession === null) {
-		// no session token in cookie
 		errorResponse(res, 'Who you be', Error('Sign In or Up'), 404);
 		return;
 	} else {
@@ -33,7 +32,6 @@ app.use(async (req: Request, res: Response, next: NextFunction) => {
 		});
 		console.log(session);
 		if (!session) {
-			// session not found in database
 			console.log('You need to login bruvh');
 			errorResponse(res, 'You do not have permissions', Error('Sign In'), 404);
 			return;

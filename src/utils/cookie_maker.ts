@@ -10,7 +10,7 @@ export const createSession = async (
 ) => {
 	// eslint-disable-next-line @typescript-eslint/naming-convention
 	const {user_id, email, first_name, last_name} = data;
-	const expiresAt = new Date().setMinutes(new Date().getMinutes() + 60);
+	const expiresAt = new Date().setSeconds(new Date().getSeconds() + 60);
 	const sessionId = uuidv4();
 	const sessionData = {
 		user_id,
