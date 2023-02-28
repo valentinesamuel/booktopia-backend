@@ -10,24 +10,21 @@ export const createSession = async (
 ) => {
 	// eslint-disable-next-line @typescript-eslint/naming-convention
 	const {user_id, email, first_name, last_name} = data;
-	const expiresAt = new Date().setMinutes(new Date().getMinutes() + 60);
 	const sessionId = uuidv4();
 	const sessionData = {
 		user_id,
 		email,
 		first_name,
-		last_name,
-		expiresAt
+		last_name
 	};
 
 	const sessionToken = {
 		session_id: sessionId,
-		expires_at: expiresAt,
 		data: sessionData
 	};
 	const storeSess = await Session.create(sessionToken);
 
-	res.cookie(cookieName, storeSess, {maxAge: expiresAt});
+	res.cookie(cookieName, storeSess, {maxAge: 60 * 60 * 1000});
 	console.log(req.cookies);
 };
 
@@ -46,12 +43,6 @@ export const checkSession = async (
 	});
 	if (session === undefined || session === null) {
 		// session not found in database
-		next();
-	}
-	if (session !== null || session.expires_at > new Date()) {
-		// session has expired
-		await Session.deleteOne({session_id: storedSession.session_id});
-		req.cookies.user_data = null;
 		next();
 	}
 

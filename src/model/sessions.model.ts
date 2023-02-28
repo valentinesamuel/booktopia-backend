@@ -10,9 +10,6 @@ const SessionSchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
-	expires_at: {
-		type: Date
-	},
 	session_id: {type: String, required: true, unique: true},
 	data: {
 		user_id: {type: String, required: true, unique: true},
