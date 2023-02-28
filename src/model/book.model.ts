@@ -20,7 +20,6 @@ const BookSchema = new Schema({
 	price: {type: Number, required: true},
 	discounted_price: {type: Number, required: false},
 	average_rating: {type: Number, required: true},
-	author_biography: {type: String, required: true},
 	book_summary: {type: String, required: true},
 	book_details: {
 		cover_type: {type: String, required: true},

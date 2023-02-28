@@ -25,12 +25,12 @@ const getAGenreBooksService = async (genre: string) => {
 };
 
 const searchService = async (title: string) => {
-	const books = await repositoryContainer.searchRepo(title);
-	console.log(books);
-	if (books == null) {
-		throw new Error('Books could not be retrieved');
+	const book = await repositoryContainer.searchRepo(title);
+	console.log(book);
+	if (book == null) {
+		throw new Error('Book could not be retrieved');
 	}
-	return books;
+	return book;
 };
 
 const getOrdersService = async (userId: string) => {

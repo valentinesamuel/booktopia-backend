@@ -8,7 +8,7 @@ import {errorResponse} from './utils/response_parser';
 import {userRouter} from './v1/routes/user.router';
 import {adminRouter} from './v1/routes/admin.router';
 import {mongodbConnect} from './config/mongodb';
-import {Session} from './model/sessions.model';
+// import {Session} from './model/sessions.model';
 import {authRouter} from './v1/routes/auth.route';
 dotenv.config();
 
@@ -24,23 +24,25 @@ app.use(fileUpload());
 app.use('/api/v1/auth', authRouter);
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 app.use(async (req: Request, res: Response, next: NextFunction) => {
-	console.log(req.cookies.user_data);
+	// console.log(req.cookies.user_data);
 	const storedSession = req.cookies.user_data;
 	if (storedSession === undefined || storedSession === null) {
 		errorResponse(res, 'Who are you?', Error('Sign In or Up'), 404);
-	} else {
-		const session: any = await Session.findOne({
-			session_id: storedSession.session_id
-		});
-		console.log(session);
-		if (!session) {
-			console.log('You need to login bruvh');
-			errorResponse(res, 'You do not have permissions', Error('Sign In'), 404);
-			return;
-		}
-		next();
-		req.cookies = session;
 	}
+	// else {
+	// 	const session: any = await Session.findOne({
+	// 		session_id: storedSession.session_id
+	// 	});
+	// 	// console.log(session);
+	// 	if (!session) {
+	// 		console.log('You need to login bruvh');
+	// 		// console.log(req.cookies);
+	// 		errorResponse(res, 'You do not have permissions', Error('Sign In'), 404);
+	// 		return;
+	// 	}
+	next();
+	// 	req.cookies = session;
+	// }
 });
 
 app.use('/api/v1/user', userRouter);

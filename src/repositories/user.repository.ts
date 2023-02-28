@@ -1,8 +1,9 @@
+/* eslint-disable quote-props */
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 // import { Genre } from '../model/genre.model';
 // import {GiftCard} from '../model/gift_card.model';
 // import {ObjectIndexer} from '../utils/utility-types';
-// import {Book} from '../model/book.model';
+import {Book} from '../model/book.model';
 // import { Order } from '../model/order.model';
 // import {Cart} from '../model/cart.model';
 // import {getGenreIdByName} from '../utils/db_query_paarser';
@@ -10,14 +11,42 @@ import {User} from '../model/user.model';
 // import {Subscription} from '../model/subscription.model';
 
 const getAllBooksRepo = async () => {
-	const book = 'You Got all the books';
-	// const book = await Book.find({});
+	// const book = 'You Got all the books';
+	const book = await Book.find({});
 	return book;
 };
 
-const getABookRepo = async (_bookId: string) => {
-	const book = 'You Got a Book';
-	// const book = await Book.find({book_id: bookId});
+const getABookRepo = async (bookId: string) => {
+	const book = await Book.aggregate([
+		{$match: {book_id: bookId}},
+		{
+			$lookup: {
+				from: 'authors',
+				localField: 'authors_id',
+				foreignField: 'author_id',
+				as: 'authors'
+			}
+		},
+
+		{
+			$lookup: {
+				from: 'genres',
+				localField: 'genre_id',
+				foreignField: 'genre_id',
+				as: 'genres'
+			}
+		},
+
+		{
+			$project: {
+				'authors._id': 0,
+				'genres._id': 0,
+				genre_id: 0,
+				authors_id: 0,
+				__v: 0
+			}
+		}
+	]);
 	return book;
 };
 
@@ -29,8 +58,7 @@ const getAGenreBooksRepo = async (genreName: string) => {
 };
 
 const searchRepo = async (bookTitle: string) => {
-	const book = `You Got the ${bookTitle} books`;
-	// const book = await Book.find({title: bookTitle});
+	const book = await Book.find({title: {$regex: bookTitle, $options: 'i'}});
 	return book;
 };
 
@@ -63,6 +91,7 @@ const getWishlistRepo = async (userId: string) => {
 	// const wishlistedBooks = await Book.find({
 	// 	book_id: {$in: wishlist}
 	// });
+
 	return wishlistedBooks;
 };
 

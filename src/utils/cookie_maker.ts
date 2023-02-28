@@ -3,7 +3,7 @@ import {v4 as uuidv4} from 'uuid';
 import {NextFunction, Request, Response} from 'express';
 
 export const createSession = async (
-	req: Request,
+	_req: Request,
 	res: Response,
 	data: any,
 	cookieName: string
@@ -22,10 +22,10 @@ export const createSession = async (
 		session_id: sessionId,
 		data: sessionData
 	};
-	const storeSess = await Session.create(sessionToken);
+	// const storeSess = await Session.create(sessionToken);
 
-	res.cookie(cookieName, storeSess, {maxAge: 60 * 60 * 1000});
-	console.log(req.cookies);
+	res.cookie(cookieName, sessionToken, {maxAge: 60 * 60 * 1000});
+	// console.log(req.cookies);
 };
 
 export const checkSession = async (
@@ -48,6 +48,6 @@ export const checkSession = async (
 
 	req.cookies = session;
 	// if the cookie has expired, redirect the request to sign in
-	console.log(req.cookies.user_data);
+	// console.log(req.cookies.user_data);
 	next();
 };

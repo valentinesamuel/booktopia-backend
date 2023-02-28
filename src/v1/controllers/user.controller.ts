@@ -19,6 +19,8 @@ const getAllBooks = async (_req: Request, res: Response) => {
 
 const getABook = async (req: Request, res: Response) => {
 	try {
+		console.log(req.params);
+
 		const bookId = req.params.bookId;
 		const book = await serviceContainer.getABookService(bookId);
 		successResponse(res, 'Fetched successfully', book, 200);
@@ -39,11 +41,13 @@ const getAGenreBooks = async (req: Request, res: Response) => {
 
 const searchBook = async (req: Request, res: Response) => {
 	try {
-		const book = req.query.searchstring;
-		const books = await serviceContainer.searchService(book as string);
-		successResponse(res, 'Fetched successfully', books, 200);
+		const bookTitle = req.query.searchstring;
+		console.log(bookTitle);
+
+		const book = await serviceContainer.searchService(bookTitle as string);
+		successResponse(res, 'Fetched successfully', book, 200);
 	} catch (error) {
-		errorResponse(res, 'Failed to fetch books', error as Error);
+		errorResponse(res, 'Failed to fetch book', error as Error);
 	}
 };
 

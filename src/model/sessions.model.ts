@@ -12,7 +12,7 @@ const SessionSchema = new Schema({
 	},
 	session_id: {type: String, required: true, unique: true},
 	data: {
-		user_id: {type: String, required: true, unique: true},
+		user_id: {type: String, required: true},
 		email: {type: String, required: true, unique: true},
 		first_name: {type: String, required: true},
 		last_name: {type: String, required: true},
