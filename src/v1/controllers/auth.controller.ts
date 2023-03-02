@@ -104,7 +104,6 @@ const signOutUser = async (
 	console.log(req.cookies);
 
 	if (storedSession === undefined || storedSession === null) {
-		// no session token in cookie
 		errorResponse(
 			res,
 			'You were not authenticated',
@@ -116,16 +115,13 @@ const signOutUser = async (
 		const session: any = await Session.findOne({
 			session_id: storedSession.session_id
 		});
-		console.log(session);
 		if (!session) {
-			// session not found in database
 			console.log('You need to login bruvh');
 			errorResponse(res, 'You do not have permissions', Error('Sign In'), 404);
 			return;
 		}
 		if (session?.expires_at > new Date()) {
 			await Session.deleteOne({session_id: storedSession.session_id});
-			// req.cookies.user_data = null;
 		}
 	}
 	successResponse(res, 'Su8ccessfully logged out', {}, 200);

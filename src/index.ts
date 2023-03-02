@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+/* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import express, {Application, NextFunction, Request, Response} from 'express';
 import morgan from 'morgan';
@@ -12,7 +15,6 @@ import {errorResponse} from '@src/utils/response_parser';
 dotenv.config();
 
 const app: Application = express();
-// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
 const PORT = process.env.PORT_NUMBER || 8000;
 
 app.use(morgan('combined'));
@@ -21,7 +23,6 @@ app.use(cookieParser());
 app.use(fileUpload());
 
 app.use('/api/v1/auth', authRouter);
-// eslint-disable-next-line @typescript-eslint/no-misused-promises
 app.use(async (req: Request, res: Response, next: NextFunction) => {
 	console.log(req.cookies.user_data);
 	const storedSession = req.cookies.user_data;
@@ -29,20 +30,7 @@ app.use(async (req: Request, res: Response, next: NextFunction) => {
 		errorResponse(res, 'Who are you?', Error('Sign In or Up'), 404);
 		return;
 	}
-	// else {
-	// 	const session: any = await Session.findOne({
-	// 		session_id: storedSession.session_id
-	// 	});
-	// 	// console.log(session);
-	// 	if (!session) {
-	// 		console.log('You need to login bruvh');
-	// 		// console.log(req.cookies);
-	// 		errorResponse(res, 'You do not have permissions', Error('Sign In'), 404);
-	// 		return;
-	// 	}
 	next();
-	// 	req.cookies = session;
-	// }
 });
 
 app.use('/api/v1/user', userRouter);
@@ -65,5 +53,4 @@ const bootstrap = async () => {
 	}
 };
 
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
 bootstrap();
