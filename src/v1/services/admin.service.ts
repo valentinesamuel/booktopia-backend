@@ -1,8 +1,7 @@
-import {repositoryContainer} from '../../repositories/index.repository';
+import {repositoryContainer} from '@repositories/index.repository';
 
 const adminSearchService = async (title: string) => {
 	const books = await repositoryContainer.adminSearchBookRepo(title);
-	console.log(books);
 	if (books == null) {
 		throw new Error('Books could not be found');
 	}
@@ -11,7 +10,6 @@ const adminSearchService = async (title: string) => {
 
 const adminAddBookService = async (book: any) => {
 	const books = await repositoryContainer.adminAddBookRepo(book);
-	console.log(books);
 	if (books == null) {
 		throw new Error('Book could not be added');
 	}
@@ -20,16 +18,14 @@ const adminAddBookService = async (book: any) => {
 
 const adminDeleteBookService = async (id: string) => {
 	const books = await repositoryContainer.adminDeleteBookRepo(id);
-	console.log(books);
 	if (books == null) {
 		throw new Error('Book could not be deleted');
 	}
 	return books;
 };
 
-const adminGetBookService = async (title: string) => {
-	const books = await repositoryContainer.adminGetBookRepo(title);
-	console.log(books);
+const adminGetBookService = async (bookId: string) => {
+	const books = await repositoryContainer.adminGetBookRepo(bookId);
 	if (books == null) {
 		throw new Error('Book could not be retrieved');
 	}
@@ -38,7 +34,6 @@ const adminGetBookService = async (title: string) => {
 
 const adminGetBooksService = async () => {
 	const books = await repositoryContainer.adminGetBooksRepo();
-	console.log(books);
 	if (books == null) {
 		throw new Error('Books could not be retrieved');
 	}
@@ -47,7 +42,6 @@ const adminGetBooksService = async () => {
 
 const adminGetDonationsService = async () => {
 	const donations = await repositoryContainer.adminGetDonationsRepo();
-	console.log(donations);
 	if (donations == null) {
 		throw new Error('Donations could not be retrieved');
 	}
@@ -56,7 +50,6 @@ const adminGetDonationsService = async () => {
 
 const adminGetGenreBooksService = async (genreName: string) => {
 	const books = await repositoryContainer.adminGetGenreBooksRepo(genreName);
-	console.log(books);
 	if (books == null) {
 		throw new Error('Books could not be retrieved');
 	}
@@ -65,7 +58,6 @@ const adminGetGenreBooksService = async (genreName: string) => {
 
 const adminGetOrdersService = async () => {
 	const orders = await repositoryContainer.adminGetOrdersRepo();
-	console.log(orders);
 	if (orders == null) {
 		throw new Error('Orders could not be retrieved');
 	}
@@ -74,7 +66,6 @@ const adminGetOrdersService = async () => {
 
 const adminGetSubscriptionsService = async () => {
 	const subscriptions = await repositoryContainer.adminGetSubscriptionsRepo();
-	console.log(subscriptions);
 	if (subscriptions == null) {
 		throw new Error('Subscriptions could not be retrieved');
 	}
@@ -84,7 +75,6 @@ const adminGetSubscriptionsService = async () => {
 const adminGetUserBookSubscriptionsService = async (userId: string) => {
 	const subscriptions =
 		await repositoryContainer.adminGetUserBookSubscriptionsRepo(userId);
-	console.log(subscriptions);
 	if (subscriptions == null) {
 		throw new Error('Subscriptions could not be retrieved');
 	}
@@ -93,7 +83,6 @@ const adminGetUserBookSubscriptionsService = async (userId: string) => {
 
 const adminGetUserCartItemsService = async (userId: string) => {
 	const cartItems = await repositoryContainer.adminGetUserCartItemsRepo(userId);
-	console.log(cartItems);
 	if (cartItems == null) {
 		throw new Error('cartItems could not be retrieved');
 	}
@@ -104,7 +93,6 @@ const adminGetUserDonationsService = async (userId: string) => {
 	const userDonation = await repositoryContainer.adminGetUserDonationsRepo(
 		userId
 	);
-	console.log(userDonation);
 	if (userDonation == null) {
 		throw new Error('User Donations could not be retrieved');
 	}
@@ -113,7 +101,6 @@ const adminGetUserDonationsService = async (userId: string) => {
 
 const adminGetUserOrdersService = async (userId: string) => {
 	const userOrders = await repositoryContainer.adminGetUserOrdersRepo(userId);
-	console.log(userOrders);
 	if (userOrders == null) {
 		throw new Error('User Orders could not be retrieved');
 	}
@@ -122,7 +109,6 @@ const adminGetUserOrdersService = async (userId: string) => {
 
 const adminGetUserService = async (userId: string) => {
 	const user = await repositoryContainer.adminGetUserRepo(userId);
-	console.log(user);
 	if (user == null) {
 		throw new Error('User could not be retrieved');
 	}
@@ -131,7 +117,6 @@ const adminGetUserService = async (userId: string) => {
 
 const adminGetUsersService = async () => {
 	const users = await repositoryContainer.adminGetUsersRepo();
-	console.log(users);
 	if (users == null) {
 		throw new Error('Users could not be retrieved');
 	}
@@ -140,7 +125,6 @@ const adminGetUsersService = async () => {
 
 const adminSearchBookService = async (title: string) => {
 	const user = await repositoryContainer.adminSearchBookRepo(title);
-	console.log(user);
 	if (user == null) {
 		throw new Error('User could not be retrieved');
 	}
@@ -149,7 +133,6 @@ const adminSearchBookService = async (title: string) => {
 
 const adminUpdateBookService = async (book: any) => {
 	const user = await repositoryContainer.adminUpdateBookRepo(book);
-	console.log(user);
 	if (user == null) {
 		throw new Error('User could not be retrieved');
 	}

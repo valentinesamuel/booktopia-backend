@@ -4,12 +4,11 @@ import morgan from 'morgan';
 import fileUpload from 'express-fileupload';
 import * as dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
-import {errorResponse} from './utils/response_parser';
-import {userRouter} from './v1/routes/user.router';
-import {adminRouter} from './v1/routes/admin.router';
-import {mongodbConnect} from './config/mongodb';
-// import {Session} from './model/sessions.model';
-import {authRouter} from './v1/routes/auth.route';
+import {userRouter} from '@routes/user.router';
+import {adminRouter} from '@routes/admin.router';
+import {mongodbConnect} from '@config/mongodb';
+import {authRouter} from '@routes/auth.route';
+import {errorResponse} from '@src/utils/response_parser';
 dotenv.config();
 
 const app: Application = express();
@@ -24,10 +23,11 @@ app.use(fileUpload());
 app.use('/api/v1/auth', authRouter);
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 app.use(async (req: Request, res: Response, next: NextFunction) => {
-	// console.log(req.cookies.user_data);
+	console.log(req.cookies.user_data);
 	const storedSession = req.cookies.user_data;
 	if (storedSession === undefined || storedSession === null) {
 		errorResponse(res, 'Who are you?', Error('Sign In or Up'), 404);
+		return;
 	}
 	// else {
 	// 	const session: any = await Session.findOne({

@@ -47,10 +47,8 @@ const repositoryContainer = {
 	updateCartRepo,
 	addBookSubscriptionRepo,
 	getBookSubscriptionsRepo,
-
 	signInUser,
 	signUpUser,
-
 	adminAddBookRepo,
 	adminDeleteBookRepo,
 	adminGetBookRepo,

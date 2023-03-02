@@ -6,9 +6,15 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "*": [
-        "node_modules/*"
-      ]
+      "@src/*": ["src/*"],
+      "@config/*": ["src/config/*"],
+      "@model/*": ["src/model/*"],
+      "@repositories/*": ["src/repositories/*"],
+      "@utils/*": ["src/utils/*"],
+      "@validations*": ["src/validations*"],
+      "@controllers*": ["src/v1/controllers*"],
+      "@routes*": ["src/v1/routes*"],
+      "@services*": ["src/v1/services*"],
     },
     "typeRoots": [
       "./src/types",
@@ -34,7 +40,7 @@
   },
   "include": [
     "src/**/*",
-    "./encryption.ts",
+    "src/utils/encryption.ts",
     "./encryption2.ts",
     "./hasher.ts"
   ],

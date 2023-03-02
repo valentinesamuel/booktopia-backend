@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import {IUser} from '../utils/types';
+import {IUser} from '@utils/types';
 
 export const validateSignUpUserData = (user: any) => {
 	const userSchema = Joi.object({

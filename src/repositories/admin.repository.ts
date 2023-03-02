@@ -1,13 +1,13 @@
-import {Subscription} from '../model/subscription.model';
-import {Book} from '../model/book.model';
-import {Order} from '../model/order.model';
-import {Donation} from '../model/donation.model';
-import {User} from '../model/user.model';
-import {OrderHistory} from '../model/order_history.model';
-import {GiftCard} from '../model/gift_card.model';
-import {ObjectIndexer} from '../utils/utility-types';
-import {Cart} from '../model/cart.model';
-import {getGenreIdByName} from '../utils/db_query_paarser';
+import {Subscription} from '@model/subscription.model';
+import {Book} from '@model/book.model';
+import {Order} from '@model/order.model';
+import {Donation} from '@model/donation.model';
+import {User} from '@model/user.model';
+import {OrderHistory} from '@model/order_history.model';
+import {GiftCard} from '@model/gift_card.model';
+import {ObjectIndexer} from '@utils/utility-types';
+import {Cart} from '@model/cart.model';
+import {Genre} from '@model/genre.model';
 
 const adminSearchBookRepo = async (bookTitle: string) => {
 	const book = await Book.find({title: bookTitle});
@@ -20,7 +20,36 @@ const adminGetBooksRepo = async () => {
 };
 
 const adminGetBookRepo = async (bookId: string) => {
-	const book = await Book.find({book_id: bookId});
+	const book = await Book.aggregate([
+		{$match: {book_id: bookId}},
+		{
+			$lookup: {
+				from: 'authors',
+				localField: 'authors_id',
+				foreignField: 'author_id',
+				as: 'authors'
+			}
+		},
+
+		{
+			$lookup: {
+				from: 'genres',
+				localField: 'genre_id',
+				foreignField: 'genre_id',
+				as: 'genres'
+			}
+		},
+
+		{
+			$project: {
+				'authors._id': 0,
+				'genres._id': 0,
+				genre_id: 0,
+				authors_id: 0,
+				__v: 0
+			}
+		}
+	]);
 	return book;
 };
 
@@ -43,9 +72,9 @@ const adminAddBookRepo = async (newBook: string) => {
 };
 
 const adminGetGenreBooksRepo = async (genreName: string) => {
-	const genreId = await getGenreIdByName(genreName);
-	const book = await Book.find({genre_id: genreId});
-	return book;
+	const genre = await Genre.findOne({genre_name: genreName});
+	const books = await Book.find({genre_id: {$in: [genre?.genre_id]}});
+	return books;
 };
 
 const adminGetSubscriptionsRepo = async () => {
@@ -90,8 +119,8 @@ const adminGetUserCartItemsRepo = async (userId: string) => {
 	return cartDetails;
 };
 
-const adminGetUserBookSubscriptionsRepo = async (userId: string) => {
-	const subscription = await Subscription.find({user_id: userId});
+const adminGetUserBookSubscriptionsRepo = async (email: string) => {
+	const subscription = await Subscription.find({email});
 	return subscription;
 };
 

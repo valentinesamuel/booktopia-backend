@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
+import {verifyUserID} from '@utils/encryption2';
 import {Request, Response} from 'express';
 
-import {dbQueryParser} from '../../utils/db_query_paarser';
-import {convertQueryStringToObject} from '../../utils/query_parser';
-import {errorResponse, successResponse} from '../../utils/response_parser';
-import {serviceContainer} from '../services/index.service';
+import {dbQueryParser} from '@utils/db_query_paarser';
+import {convertQueryStringToObject} from '@utils/query_parser';
+import {errorResponse, successResponse} from '@utils/response_parser';
+import {serviceContainer} from '@services/index.service';
 
 const getAllBooks = async (_req: Request, res: Response) => {
 	try {
@@ -19,8 +20,6 @@ const getAllBooks = async (_req: Request, res: Response) => {
 
 const getABook = async (req: Request, res: Response) => {
 	try {
-		console.log(req.params);
-
 		const bookId = req.params.bookId;
 		const book = await serviceContainer.getABookService(bookId);
 		successResponse(res, 'Fetched successfully', book, 200);
@@ -34,6 +33,7 @@ const getAGenreBooks = async (req: Request, res: Response) => {
 		const genreName = req.params.genreName;
 		const books = await serviceContainer.getAGenreBooksService(genreName);
 		successResponse(res, 'Fetched successfully', books, 200);
+		return;
 	} catch (error) {
 		errorResponse(res, 'Failed to fetch books', error as Error);
 	}
@@ -73,9 +73,14 @@ const getOrders = async (req: Request, res: Response) => {
 
 const getUserDetail = async (req: Request, res: Response) => {
 	try {
-		const userId = req.params.userId;
-		const userDetail = await serviceContainer.getUserDetailService(userId);
-		successResponse(res, 'Fetched Successfully', userDetail, 200);
+		const userId = req.cookies.user_data.data.user_id;
+		const userExists = await verifyUserID(userId);
+		if (userExists === true) {
+			const userDetail = await serviceContainer.getUserDetailService(userId);
+			successResponse(res, 'Fetched Successfully', userDetail, 200);
+			return;
+		}
+		throw new Error('Invalid User');
 	} catch (error) {
 		errorResponse(res, 'Failed to fetch user details', error as Error);
 	}
@@ -83,49 +88,67 @@ const getUserDetail = async (req: Request, res: Response) => {
 
 const updateUserDetail = async (req: Request, res: Response) => {
 	try {
-		const userId = req.params.userId;
-		const updatedInformation = req.query;
-		const userDetail = await serviceContainer.updateUserDetailService(
-			userId,
-			updatedInformation
-		);
-		successResponse(res, 'Fetched Successfully', userDetail, 200);
+		const userId = req.cookies.user_data.data.user_id;
+		const userExists = await verifyUserID(userId);
+		const updatedInformation = req.body;
+		if (userExists === true) {
+			const userDetail = await serviceContainer.updateUserDetailService(
+				userId,
+				updatedInformation
+			);
+			successResponse(res, 'Updated Sucessfully', userDetail, 200);
+			return;
+		}
+		throw new Error('Invalid User');
 	} catch (error) {
-		errorResponse(res, 'Failed to fetch user details', error as Error);
+		errorResponse(res, 'Failed to update user details', error as Error);
 	}
 };
 
 const getWishlist = async (req: Request, res: Response) => {
 	try {
-		const userId = req.params.userId;
-		const wishlist = await serviceContainer.getWishlistService(userId);
-		successResponse(res, 'Fetched Successfully', wishlist, 200);
+		const userId = req.cookies.user_data.data.user_id;
+		const userExists = await verifyUserID(userId);
+		if (userExists === true) {
+			const wishlist = await serviceContainer.getWishlistService(userId);
+			successResponse(res, 'Fetched wishlist Successfully', wishlist, 200);
+			return;
+		}
+		throw new Error('Invalid User');
 	} catch (error) {
-		errorResponse(res, 'Failed to fetch user details', error as Error);
+		errorResponse(res, 'Failed to fetch user wishlist', error as Error);
 	}
 };
 
 const updateWishlist = async (req: Request, res: Response) => {
 	try {
-		const userId = req.params.userId;
 		const wishlistItems = req.body;
-		const wishlist = await serviceContainer.updateWishlistService(
-			userId,
-			wishlistItems
-		);
-		console.log(wishlistItems);
-
-		successResponse(res, 'Fetched Successfully', wishlist, 200);
+		const userId = req.cookies.user_data.data.user_id;
+		const userExists = await verifyUserID(userId);
+		if (userExists === true) {
+			const wishlist = await serviceContainer.updateWishlistService(
+				userId,
+				wishlistItems
+			);
+			successResponse(res, 'Update Successfully', wishlist, 200);
+			return;
+		}
+		throw new Error('Invalid User');
 	} catch (error) {
-		errorResponse(res, 'Failed to fetch user details', error as Error);
+		errorResponse(res, 'Failed to update user wishlist', error as Error);
 	}
 };
 
 const getCartItems = async (req: Request, res: Response) => {
 	try {
-		const userId = req.params.userId;
-		const cartItems = await serviceContainer.getCartItemsService(userId);
-		successResponse(res, 'Fetched Successfully', cartItems, 200);
+		const userId = req.cookies.user_data.data.user_id;
+		const userExists = await verifyUserID(userId);
+		if (userExists === true) {
+			const cartItems = await serviceContainer.getCartItemsService(userId);
+			successResponse(res, 'Fetched cart items successfully', cartItems, 200);
+			return;
+		}
+		throw new Error('Invalid User');
 	} catch (error) {
 		errorResponse(res, 'Failed to fetch cart items', error as Error);
 	}
@@ -133,11 +156,15 @@ const getCartItems = async (req: Request, res: Response) => {
 
 const updateCart = async (req: Request, res: Response) => {
 	try {
-		const userId = req.params.userId;
+		const userId = req.cookies.user_data.data.user_id;
+		const userExists = await verifyUserID(userId);
 		const cartItems = req.body;
-		const cart = await serviceContainer.updateCartService(userId, cartItems);
-		console.log(cart);
-		successResponse(res, 'Fetched Successfully', cart, 200);
+		if (userExists === true) {
+			const cart = await serviceContainer.updateCartService(userId, cartItems);
+			successResponse(res, 'Successfully updated user cart', cart, 200);
+			return;
+		}
+		throw new Error('Invalid User');
 	} catch (error) {
 		errorResponse(res, 'Failed to updated cart items', error as Error);
 	}
@@ -145,12 +172,17 @@ const updateCart = async (req: Request, res: Response) => {
 
 const addBookSubscription = async (req: Request, res: Response) => {
 	try {
-		// const userId = req.params.userId;
+		const userId = req.cookies.user_data.data.user_id;
+		const userExists = await verifyUserID(userId);
 		const subscriptionDetails = req.body;
-		const subscription = await serviceContainer.addBookSubscriptionService(
-			subscriptionDetails
-		);
-		successResponse(res, 'Fetched Successfully', subscription, 200);
+		if (userExists === true) {
+			const subscription = await serviceContainer.addBookSubscriptionService(
+				subscriptionDetails
+			);
+			successResponse(res, 'Fetched Successfully', subscription, 200);
+			return;
+		}
+		throw new Error('Invalid User');
 	} catch (error) {
 		errorResponse(res, 'Failed to create subscription', error as Error);
 	}
@@ -158,11 +190,16 @@ const addBookSubscription = async (req: Request, res: Response) => {
 
 const getBookSubscription = async (req: Request, res: Response) => {
 	try {
-		const userId = req.params.userId;
-		const subscription = await serviceContainer.getBookSubscriptionService(
-			userId
-		);
-		successResponse(res, 'Fetched Successfully', subscription, 200);
+		const userId = req.cookies.user_data.data.user_id;
+		const userExists = await verifyUserID(userId);
+		if (userExists === true) {
+			const subscription = await serviceContainer.getBookSubscriptionService(
+				userId
+			);
+			successResponse(res, 'Fetched Successfully', subscription, 200);
+			return;
+		}
+		throw new Error('Invalid User');
 	} catch (error) {
 		errorResponse(res, 'Failed to find subscription(s)', error as Error);
 	}

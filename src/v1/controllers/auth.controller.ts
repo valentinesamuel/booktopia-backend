@@ -5,13 +5,13 @@ import {v4 as uuidv4} from 'uuid';
 import {
 	validateSiginUserData,
 	validateSignUpUserData
-} from '../../validations/user.validation';
-import {encrypt} from '../../../encryption2';
-import {hashPassword, verifyPassword} from '../../../hasher';
-import {createSession} from '../../utils/cookie_maker';
-import {errorResponse, successResponse} from '../../utils/response_parser';
-import {serviceContainer} from '../services/index.service';
-import {Session} from '../../model/sessions.model';
+} from '@validations/user.validation';
+import {encrypt} from '@utils/encryption2';
+import {hashPassword, verifyPassword} from '@utils/hasher';
+import {createSession} from '@utils/cookie_maker';
+import {errorResponse, successResponse} from '@utils/response_parser';
+import {serviceContainer} from '@services/index.service';
+import {Session} from '@model/sessions.model';
 
 const signInUser = async (req: Request, res: Response) => {
 	try {

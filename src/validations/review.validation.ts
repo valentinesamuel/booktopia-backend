@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import {IReview} from '../utils/types';
+import {IReview} from '@utils/types';
 
 export const validateReviewData = (review: IReview) => {
 	const reviewSchema = Joi.object({

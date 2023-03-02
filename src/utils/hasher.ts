@@ -1,5 +1,5 @@
 import * as crypto from 'crypto';
-import {repositoryContainer} from './src/repositories/index.repository';
+import {repositoryContainer} from '@repositories/index.repository';
 
 export const hashPassword = (password: string) => {
 	const salt = crypto.randomBytes(16).toString('hex');

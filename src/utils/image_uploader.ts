@@ -1,4 +1,4 @@
-import {cloudinary} from '../config/cloudinary';
+import {cloudinary} from '@config/cloudinary';
 
 export const uploadToCloudinary = async (file: any, book: any) => {
 	try {

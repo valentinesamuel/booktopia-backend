@@ -1,5 +1,4 @@
 // genre=action+comedy%&%fiction&20rating=4&20price=20000+40000
-
 import {ObjectIndexer} from './utility-types';
 
 const convertQueryStringToObject = (queryString: string) => {

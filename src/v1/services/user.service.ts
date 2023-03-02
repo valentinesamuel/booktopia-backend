@@ -1,4 +1,4 @@
-import {repositoryContainer} from '../../repositories/index.repository';
+import {repositoryContainer} from '@repositories/index.repository';
 
 const getAllBooksService = async () => {
 	const books = await repositoryContainer.getAllBooksRepo();
@@ -42,11 +42,11 @@ const getOrdersService = async (userId: string) => {
 };
 
 const getUserDetailService = async (userId: string) => {
-	const orders = await repositoryContainer.getUserDetailsRepo(userId);
-	if (orders == null) {
-		throw new Error('Orders could not be retrieved');
+	const user = await repositoryContainer.getUserDetailsRepo(userId);
+	if (user == null) {
+		throw new Error('User could not be retrieved');
 	}
-	return orders;
+	return user;
 };
 
 const updateUserDetailService = async (
@@ -85,7 +85,7 @@ const updateWishlistService = async (userId: string, newWishlist: any) => {
 const getCartItemsService = async (userId: string) => {
 	const cartItems = await repositoryContainer.getCartItemsRepo(userId);
 	if (cartItems == null) {
-		throw new Error('Cart items could not be updated');
+		throw new Error('Cart items could not be retrieved');
 	}
 	return cartItems;
 };

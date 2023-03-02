@@ -1,7 +1,7 @@
 import {Request, Response} from 'express';
-import {uploadToCloudinary} from '../../utils/image_uploader';
-import {errorResponse, successResponse} from '../../utils/response_parser';
-import {serviceContainer} from '../services/index.service';
+import {uploadToCloudinary} from '@utils/image_uploader';
+import {errorResponse, successResponse} from '@utils/response_parser';
+import {serviceContainer} from '@services/index.service';
 
 const adminSearchBook = async (req: Request, res: Response) => {
 	try {
@@ -42,8 +42,8 @@ const adminAddBook = async (req: Request, res: Response) => {
 
 const adminDeleteBook = async (req: Request, res: Response) => {
 	try {
-		const deadBook = req.body.bookDetails;
-		const books = await serviceContainer.adminDeleteBookService(deadBook.id);
+		const deadBook = req.params.bookid;
+		const books = await serviceContainer.adminDeleteBookService(deadBook);
 		successResponse(res, 'Fetched successfully', books, 200);
 	} catch (error) {
 		errorResponse(res, 'Failed to delete book', error as Error);
@@ -52,8 +52,8 @@ const adminDeleteBook = async (req: Request, res: Response) => {
 
 const adminGetBook = async (req: Request, res: Response) => {
 	try {
-		const bookDetails = req.body.bookDetails;
-		const books = await serviceContainer.adminGetBookService(bookDetails.title);
+		const bookid = req.params.bookid;
+		const books = await serviceContainer.adminGetBookService(bookid);
 		successResponse(res, 'Fetched successfully', books, 200);
 	} catch (error) {
 		errorResponse(res, 'Failed to get book', error as Error);
@@ -80,7 +80,7 @@ const adminGetDonations = async (_req: Request, res: Response) => {
 
 const adminGetGenreBooks = async (req: Request, res: Response) => {
 	try {
-		const genre = req.body.genre;
+		const genre = req.params.genreName;
 		const books = await serviceContainer.adminGetGenreBooksService(genre);
 		successResponse(res, 'Fetched successfully', books, 200);
 	} catch (error) {
