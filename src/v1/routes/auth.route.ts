@@ -4,7 +4,7 @@ import {controllerContainer} from '@controllers/index.controller';
 
 const authRouter: Router = express.Router();
 
-authRouter.get('/signin', controllerContainer.signInUser);
+authRouter.post('/signin', controllerContainer.signInUser);
 authRouter.get('/signup', controllerContainer.signUpUser);
 authRouter.get('/signout', controllerContainer.signOutUser);
 
