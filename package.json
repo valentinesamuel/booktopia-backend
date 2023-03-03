@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx tsc -w",
     "dev": "nodemon --exec npx ts-node -r tsconfig-paths/register ./src/index.ts",
-    "build": "tsc",
-    "prod":"node ./build/index.js",
+    "build": "tsc && ef-tspm",
+    "prod": "node ./build/index.js",
     "format": "prettier --write .",
     "prepare": "husky install",
     "check-types": "tsc --pretty --noEmit",
@@ -49,6 +49,7 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
+    "@ef-carbon/tspm": "^2.2.5",
     "cloudinary": "^1.33.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
