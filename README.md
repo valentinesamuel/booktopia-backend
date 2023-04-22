@@ -1,4 +1,3 @@
-﻿
 # Booktopia API
 <table>
 <td>
@@ -37,9 +36,6 @@ This API can be integrated into frontend appilcations
 
 ## Contributing
 Open a pull request
-
-## Related Projects
-https://github.com/valentinesamuel/sneacker-REST_API
 
 ## License
 MIT
