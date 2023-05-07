@@ -5,17 +5,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "baseUrl": ".",
-    "paths": {
-      "@src/*": ["src/*"],
-      "@config/*": ["src/config/*"],
-      "@model/*": ["src/model/*"],
-      "@repositories/*": ["src/repositories/*"],
-      "@utils/*": ["src/utils/*"],
-      "@validations*": ["src/validations*"],
-      "@controllers*": ["src/v1/controllers*"],
-      "@routes*": ["src/v1/routes*"],
-      "@services*": ["src/v1/services*"],
-    },
+    
     "typeRoots": [
       "./src/types",
       "./node_modules/@types/"

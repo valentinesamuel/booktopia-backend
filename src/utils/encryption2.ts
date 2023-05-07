@@ -1,5 +1,5 @@
 import * as crypto from 'crypto';
-import {repositoryContainer} from '@repositories/index.repository';
+import { repositoryContainer } from 'src/repositories/index.repository';
 
 const encryptedIv = crypto.randomBytes(16);
 const algorithm = 'aes-256-cbc';

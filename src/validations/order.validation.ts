@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import {IOrder} from '@utils/types';
+import {IOrder} from 'src/utils/types';
 
 export const validateOrderData = (order: IOrder) => {
 	const orderSchema = Joi.object({

@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/naming-convention */
 import {Request, Response, NextFunction} from 'express';
-import {v4 as uuidv4} from 'uuid';
+import {hashPassword, verifyPassword} from 'src/utils/hasher';
+import {errorResponse, successResponse} from 'src/utils/response_parser';
 import {
 	validateSiginUserData,
 	validateSignUpUserData
-} from '@validations/user.validation';
-import {encrypt} from '@utils/encryption2';
-import {hashPassword, verifyPassword} from '@utils/hasher';
-import {createSession} from '@utils/cookie_maker';
-import {errorResponse, successResponse} from '@utils/response_parser';
-import {serviceContainer} from '@services/index.service';
-import {Session} from '@model/sessions.model';
+} from 'src/validations/user.validation';
+import {v4 as uuidv4} from 'uuid';
+import {serviceContainer} from '../services/index.service';
+import {createSession} from 'src/utils/cookie_maker';
+import {encrypt} from 'src/utils/encryption';
+import {Session} from 'src/model/sessions.model';
 
 const signInUser = async (req: Request, res: Response) => {
 	try {

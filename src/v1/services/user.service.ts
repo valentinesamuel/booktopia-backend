@@ -1,4 +1,4 @@
-import {repositoryContainer} from '@repositories/index.repository';
+import {repositoryContainer} from 'src/repositories/index.repository';
 
 const getAllBooksService = async () => {
 	const books = await repositoryContainer.getAllBooksRepo();

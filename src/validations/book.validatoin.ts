@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import {IBook} from '@utils/types';
+import { IBook } from 'src/utils/types';
 
 export const validateBookData = (book: IBook) => {
 	const bookSchema = Joi.object({

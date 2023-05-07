@@ -1,13 +1,13 @@
-import {Subscription} from '@model/subscription.model';
-import {Book} from '@model/book.model';
-import {Order} from '@model/order.model';
-import {Donation} from '@model/donation.model';
-import {User} from '@model/user.model';
-import {OrderHistory} from '@model/order_history.model';
-import {GiftCard} from '@model/gift_card.model';
-import {ObjectIndexer} from '@utils/utility-types';
-import {Cart} from '@model/cart.model';
-import {Genre} from '@model/genre.model';
+import {Book} from 'src/model/book.model';
+import {Cart} from 'src/model/cart.model';
+import {Donation} from 'src/model/donation.model';
+import {Genre} from 'src/model/genre.model';
+import {GiftCard} from 'src/model/gift_card.model';
+import {Order} from 'src/model/order.model';
+import {OrderHistory} from 'src/model/order_history.model';
+import {Subscription} from 'src/model/subscription.model';
+import {User} from 'src/model/user.model';
+import {ObjectIndexer} from 'src/utils/utility-types';
 
 const adminSearchBookRepo = async (bookTitle: string) => {
 	const book = await Book.find({title: bookTitle});

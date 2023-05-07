@@ -1,5 +1,5 @@
+import { IOrderHistory } from './../utils/types';
 import Joi from 'joi';
-import {IOrderHistory} from '@utils/types';
 
 export const validateOrderHistoryData = (orderHistory: IOrderHistory) => {
 	const orderHistorySchema = Joi.object({

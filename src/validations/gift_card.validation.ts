@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import {IGiftCard} from '@utils/types';
+import { IGiftCard } from 'src/utils/types';
 
 export const validateGiftCardData = (giftCard: IGiftCard) => {
 	const giftCardSchema = Joi.object({

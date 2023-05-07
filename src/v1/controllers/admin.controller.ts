@@ -1,7 +1,7 @@
 import {Request, Response} from 'express';
-import {uploadToCloudinary} from '@utils/image_uploader';
-import {errorResponse, successResponse} from '@utils/response_parser';
-import {serviceContainer} from '@services/index.service';
+import { serviceContainer } from '../services/index.service';
+import { errorResponse, successResponse } from 'src/utils/response_parser';
+import { uploadToCloudinary } from 'src/utils/image_uploader';
 
 const adminSearchBook = async (req: Request, res: Response) => {
 	try {

@@ -1,3 +1,4 @@
+import { mongodbConnect } from './config/mongodb';
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-floating-promises */
@@ -7,11 +8,10 @@ import morgan from 'morgan';
 import fileUpload from 'express-fileupload';
 import * as dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
-import {userRouter} from '@routes/user.router';
-import {adminRouter} from '@routes/admin.router';
-import {mongodbConnect} from '@config/mongodb';
-import {authRouter} from '@routes/auth.route';
-import {errorResponse} from '@src/utils/response_parser';
+import { userRouter } from './v1/routes/user.router';
+import { adminRouter } from './v1/routes/admin.router';
+import { authRouter } from './v1/routes/auth.route';
+import { errorResponse } from './utils/response_parser';
 dotenv.config();
 
 const app: Application = express();
