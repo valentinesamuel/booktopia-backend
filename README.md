@@ -9,7 +9,7 @@
 
 
 ## Demo
-A working live demo : [here](https://www.postman.com/lunar-module-technologist-97035210/workspace/alx-project-workspace/collection/14004903-407dd4e6-e97a-4cbe-8b1f-dde5c923c254?action=share&creator=14004903&ctx=documentation)
+A working live demo : [here](https://www.postman.com/lunar-module-technologist-97035210/workspace/alx-project-workspace/collection/14004903-ece0e1c8-1bbc-4329-84d8-f403d2bdd9ef)
 
 
 ## Installtion
