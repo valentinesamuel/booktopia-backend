@@ -3,10 +3,10 @@
 
 import {Request, Response} from 'express';
 import { serviceContainer } from '../services/index.service';
-import { errorResponse, successResponse } from 'src/utils/response_parser';
-import { convertQueryStringToObject } from 'src/utils/query_parser';
-import { dbQueryParser } from 'src/utils/db_query_paarser';
-import { verifyUserID } from 'src/utils/encryption2';
+import { errorResponse, successResponse } from '../../utils/response_parser';
+import { convertQueryStringToObject } from '../../utils/query_parser';
+import { dbQueryParser } from '../../utils/db_query_paarser';
+import { verifyUserID } from '../../utils/encryption2';
 
 const getAllBooks = async (_req: Request, res: Response) => {
 	try {

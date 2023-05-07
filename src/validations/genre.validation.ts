@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { IGenre } from 'src/utils/types';
+import {IGenre} from '../utils/types';
 
 export const validateGenreData = (genre: IGenre) => {
 	const genreSchema = Joi.object({

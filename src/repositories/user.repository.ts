@@ -1,13 +1,13 @@
 /* eslint-disable quote-props */
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 
-import {Book} from 'src/model/book.model';
-import {Cart} from 'src/model/cart.model';
-import {Genre} from 'src/model/genre.model';
-import {GiftCard} from 'src/model/gift_card.model';
-import {Subscription} from 'src/model/subscription.model';
-import {User} from 'src/model/user.model';
-import {ObjectIndexer} from 'src/utils/utility-types';
+import {Book} from '../model/book.model';
+import {Cart} from '../model/cart.model';
+import {Genre} from '../model/genre.model';
+import {GiftCard} from '../model/gift_card.model';
+import {Subscription} from '../model/subscription.model';
+import {User} from '../model/user.model';
+import {ObjectIndexer} from '../utils/utility-types';
 
 const getAllBooksRepo = async () => {
 	const book = await Book.find({});

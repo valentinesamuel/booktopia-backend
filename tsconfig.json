@@ -4,7 +4,7 @@
     /* Modules */
     "module": "commonjs",
     "moduleResolution": "node",
-    "baseUrl": ".",
+
     
     "typeRoots": [
       "./src/types",

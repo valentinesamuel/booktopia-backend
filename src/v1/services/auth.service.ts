@@ -1,5 +1,5 @@
-import {repositoryContainer} from 'src/repositories/index.repository';
-import {IUser} from 'src/utils/types';
+import {repositoryContainer} from '../../repositories/index.repository';
+import {IUser} from '../../utils/types';
 
 const signInUserService = async (user: IUser) => {
 	const signedInUser = await repositoryContainer.signInUser(user);

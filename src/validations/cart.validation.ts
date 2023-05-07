@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { ICart } from 'src/utils/types';
+import { ICart } from '../utils/types';
 
 export const validateCartData = (cart: ICart) => {
 	const cartSchema = Joi.object({

@@ -1,4 +1,4 @@
-import {repositoryContainer} from 'src/repositories/index.repository';
+import {repositoryContainer} from '../../repositories/index.repository';
 
 const adminSearchService = async (title: string) => {
 	const books = await repositoryContainer.adminSearchBookRepo(title);

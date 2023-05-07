@@ -1,6 +1,6 @@
 import {v4 as uuidv4} from 'uuid';
 import {NextFunction, Request, Response} from 'express';
-import { Session } from 'src/model/sessions.model';
+import { Session } from '../model/sessions.model';
 
 export const createSession = async (
 	_req: Request,

@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { IDonation } from 'src/utils/types';
+import {IDonation} from '../utils/types';
 
 export const validateDonationData = (donation: IDonation) => {
 	const donationSchema = Joi.object({

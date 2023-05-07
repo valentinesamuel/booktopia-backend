@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { ISubscription } from 'src/utils/types';
+import {ISubscription} from '../utils/types';
 
 export const validateSubscriptionData = (subscription: ISubscription) => {
 	const subscriptionSchema = Joi.object({
