@@ -49,7 +49,6 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "@ef-carbon/tspm": "^2.2.5",
     "cloudinary": "^1.33.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
